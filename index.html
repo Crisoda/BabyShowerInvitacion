@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Shower - Una historia que comienza ✨</title>
+    <title> Baby Shower - ¡Te invitamos!✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +24,6 @@
             position: relative;
         }
 
-        /* Partículas flotantes mágicas */
         .floating-particles {
             position: fixed;
             top: 0;
@@ -56,7 +59,6 @@
             }
         }
 
-        /* Brillo giratorio sutil */
         .sparkle {
             position: absolute;
             width: 3px;
@@ -78,7 +80,6 @@
             }
         }
 
-        /* Secciones principales */
         section {
             min-height: 100vh;
             display: flex;
@@ -98,54 +99,50 @@
             transform: translateY(0);
         }
 
-        /* Introducción narrativa */
-        .intro {
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .hero-title {
             text-align: center;
-            max-width: 700px;
-            animation: fadeInGlow 2s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 1s ease;
+            z-index: 10;
         }
 
-        @keyframes fadeInGlow {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
+        .hero-title.hide {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+            pointer-events: none;
         }
 
-        .intro h1 {
+        .hero-title h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3em;
+            font-size: 4em;
             color: #d4a5a5;
             margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(212, 165, 165, 0.5), 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1);
             animation: titleGlow 3s ease-in-out infinite;
         }
 
         @keyframes titleGlow {
-            0%, 100% { text-shadow: 0 0 20px rgba(212, 165, 165, 0.5), 2px 2px 4px rgba(0,0,0,0.1); }
-            50% { text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1); }
+            0%, 100% { text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1); }
+            50% { text-shadow: 0 0 50px rgba(212, 165, 165, 1), 2px 2px 4px rgba(0,0,0,0.1); }
         }
 
-        .intro p {
-            font-size: 1.4em;
-            line-height: 2;
-            color: #6d4c41;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        .scroll-hint {
-            font-size: 1.2em;
+        .hero-title p {
+            font-size: 1.5em;
             color: #f48fb1;
             animation: bounce 2s infinite;
-            cursor: pointer;
-            display: inline-block;
         }
 
         @keyframes bounce {
@@ -153,7 +150,116 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* Detalles del evento */
+        .countdown {
+            text-align: center;
+            max-width: 100%;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            background: rgba(252, 228, 236, 0.98);
+            padding: 30px 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .countdown.compact {
+            padding: 8px 15px;
+            transform: scale(0.6);
+            transform-origin: top center;
+        }
+
+        .countdown h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #d4a5a5;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .countdown.compact h2 {
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 25px 20px;
+            min-width: 100px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown.compact .time-box {
+            padding: 8px 6px;
+            min-width: 50px;
+        }
+
+        .time-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 4s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .time-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .time-box .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #f48fb1;
+            display: block;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .countdown.compact .time-box .number {
+            font-size: 1.3em;
+        }
+
+        .time-box .label {
+            font-size: 0.9em;
+            color: #6d4c41;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .countdown.compact .time-box .label {
+            font-size: 0.6em;
+            letter-spacing: 0.5px;
+        }
+
         .event-details {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
@@ -202,7 +308,15 @@
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
         }
 
-        /* Botones mejorados */
+        .event-details .map-embed {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
         .btn-container {
             display: flex;
             gap: 15px;
@@ -257,110 +371,6 @@
             color: white;
         }
 
-        /* Cuenta regresiva mejorada */
-        .countdown {
-            text-align: center;
-            max-width: 900px;
-        }
-
-        .countdown h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.3em;
-            color: #d4a5a5;
-            margin-bottom: 40px;
-            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
-        }
-
-        .countdown-timer {
-            display: flex;
-            gap: 25px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .time-box {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 35px 25px;
-            min-width: 120px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .time-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
-            animation: rotateGlow 4s linear infinite;
-        }
-
-        @keyframes rotateGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .time-box:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-        }
-
-        .time-box .number {
-            font-size: 3.5em;
-            font-weight: bold;
-            color: #f48fb1;
-            display: block;
-            font-family: 'Playfair Display', serif;
-            position: relative;
-            z-index: 1;
-        }
-
-        .time-box .label {
-            font-size: 1em;
-            color: #6d4c41;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Mapa mejorado */
-        .map-container {
-            text-align: center;
-            max-width: 900px;
-            width: 90%;
-        }
-
-        .map-container h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
-            color: #d4a5a5;
-            margin-bottom: 40px;
-            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 450px;
-            border-radius: 30px;
-            border: none;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            transition: all 0.4s ease;
-        }
-
-        .map-container iframe:hover {
-            transform: scale(1.02);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.25);
-        }
-
-        /* Juego de globos mejorado */
         .balloon-game {
             text-align: center;
             width: 100%;
@@ -491,7 +501,85 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        /* Sección de deseos mejorada */
+        .final-reveal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(252, 228, 236, 0.98), rgba(248, 187, 208, 0.98));
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .final-reveal.show {
+            display: flex;
+        }
+
+        .final-reveal-content {
+            text-align: center;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.4);
+            max-width: 700px;
+            animation: popIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 4px solid rgba(212, 165, 165, 0.5);
+        }
+
+        .final-reveal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: #d4a5a5;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(212, 165, 165, 0.8);
+        }
+
+        .final-reveal-content .name {
+            font-size: 6em;
+            font-weight: bold;
+            color: #f48fb1;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 40px rgba(244, 143, 177, 0.8);
+            animation: letterPulse 2s ease-in-out infinite;
+            margin: 40px 0;
+        }
+
+        .final-reveal-content p {
+            font-size: 1.5em;
+            color: #6d4c41;
+            line-height: 1.8;
+            margin: 30px 0;
+        }
+
+        .final-reveal-content button {
+            margin-top: 40px;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(244, 143, 177, 0.4);
+            font-weight: 600;
+        }
+
+        .final-reveal-content button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(244, 143, 177, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .wishes-section {
             text-align: center;
             max-width: 1000px;
@@ -623,7 +711,6 @@
             }
         }
 
-        /* Cierre poético mejorado */
         .finale {
             text-align: center;
             max-width: 750px;
@@ -653,7 +740,6 @@
             font-weight: 600;
         }
 
-        /* Confeti mejorado */
         .confetti {
             position: fixed;
             width: 12px;
@@ -671,12 +757,11 @@
             }
         }
 
-        /* Control de música mejorado */
         .music-control {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #d4a574 0%, #e8c99e 100%);
+            background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
             width: 70px;
             height: 70px;
             border-radius: 50%;
@@ -685,7 +770,7 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1.8em;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 30px rgba(244, 143, 177, 0.4);
             z-index: 1000;
             transition: all 0.3s ease;
             border: 3px solid rgba(255, 255, 255, 0.5);
@@ -693,7 +778,7 @@
 
         .music-control:hover {
             transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 12px 40px rgba(244, 143, 177, 0.6);
         }
 
         .music-control.playing {
@@ -705,50 +790,81 @@
             50% { transform: scale(1.1); }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .intro h1 { font-size: 2em; }
-            .intro p { font-size: 1.1em; }
+            .hero-title h1 { font-size: 2.5em; }
+            .hero-title p { font-size: 1.2em; }
+            .countdown h2 { font-size: 1.5em; }
+            .countdown.compact h2 { font-size: 0.9em; }
             .event-details { padding: 30px 25px; }
             .event-details h2 { font-size: 2em; }
             .detail-item { font-size: 1em; }
-            .time-box { padding: 25px 15px; min-width: 90px; }
+            .time-box { padding: 20px 15px; min-width: 80px; }
             .time-box .number { font-size: 2.5em; }
+            .countdown.compact .time-box { padding: 6px 5px; min-width: 45px; }
+            .countdown.compact .time-box .number { font-size: 1.1em; }
+            .countdown.compact .time-box .label { font-size: 0.55em; }
             .balloon svg { width: 70px; height: 85px; }
-            .balloon-message { padding: 35px 25px; }
+            .balloon-message { padding: 35px 25px; max-width: 90%; }
             .letter-reveal { font-size: 3em; }
+            .final-reveal-content { padding: 40px 30px; max-width: 90%; }
+            .final-reveal-content h2 { font-size: 2.5em; }
+            .final-reveal-content .name { font-size: 4em; }
+            .final-reveal-content p { font-size: 1.2em; }
             h2 { font-size: 2em !important; }
             .finale h2 { font-size: 2.2em; }
+            #letterProgress { font-size: 1.1em; padding: 12px 20px; }
         }
     </style>
 </head>
-<body>
-    <!-- Partículas flotantes mágicas -->
-    <div class="floating-particles" id="particles"></div>
-
-    <!-- Control de música -->
-    <div class="music-control" id="musicControl" onclick="toggleMusic()">🎵</div>
-    <audio id="bgMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Sección 1: Introducción narrativa -->
-    <section class="visible">
-        <div class="intro">
-            <h1>✨ Érase una vez... ✨</h1>
-            <p>
-                Una historia que apenas comienza...<br>
-                Una pequeña luz está por llegar,<br>
-                y queremos celebrarlo contigo.
-            </p>
-            <div class="scroll-hint" onclick="scrollToNext()">
-                Desliza hacia abajo 🌸
-            </div>
+    <section class="hero-section">
+        <div class="hero-title" id="heroTitle">
+            <h1>✨ ¡Te invitamos al Baby Shower! ✨</h1>
+            <p>Desliza hacia abajo 🌸</p>
         </div>
     </section>
+    <h2>⏰ Faltan pocos días para celebrar esta nueva vida ✨</h2>
+        <div class="countdown" id="countdownBanner">
+        <div class="countdown-timer">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Días</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Horas</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Minutos</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Segundos</span>
+            </div>
+        </div>
+    </div>
+    
+    
+<body>
+    <div class="floating-particles" id="particles"></div>
 
-    <!-- Sección 2: Detalles del evento -->
-    <section>
+    <div class="music-control" id="musicControl">🔇</div>
+    <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden;"></div>
+
+    <div class="final-reveal" id="finalReveal">
+        <div class="final-reveal-content">
+            <h2>🎊 ¡Descubriste el nombre! 🎊</h2>
+            <div class="name">RENATA</div>
+            <p>💫 ¡Bienvenida a nuestras vidas, Renata! 💫</p>
+            <p>Una nueva estrella que iluminará cada día con su luz, amor y alegría.</p>
+            <p style="font-size: 1.1em; margin-top: 25px;">Estamos emocionados de compartir este momento tan especial contigo.</p>
+            <button onclick="closeFinalReveal()">✨ Continuar Celebrando ✨</button>
+        </div>
+    </div>
+
+
+
+    <section class="visible">
         <div class="event-details">
             <h2>📋 Detalles del Evento</h2>
             <div class="detail-item">
@@ -767,8 +883,11 @@
                 <span>👩‍🍼</span>
                 <div><strong>Organiza:</strong> La abuela, Mar Barón</div>
             </div>
+            
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.106095131587!2d-74.22167033133985!3d4.574959332595347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9fdf4da26fc9%3A0xee91e30b3f19ff6b!2sCl.%2012c%20%23%201E-7%2C%20Soacha%2C%20Cundinamarca!5e0!3m2!1ses-419!2sco!4v1761864281846!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
             <div class="btn-container">
-                <a href="https://www.google.com/maps/search/?api=1&query=Calle+12+00-10+Este+Soacha" target="_blank" class="btn btn-gold">
+                <a href="https://www.google.com/maps/place/Cl.+12c+%23+1E-7,+Soacha,+Cundinamarca/@4.5749593,-74.2216703,17z/data=!3m1!4b1!4m15!1m8!3m7!1s0x8e3f9fae288f1cd3:0x2d603a0f67a984ea!2sCl+55+%23+23A-10,+Soacha,+Cundinamarca!3b1!8m2!3d4.582459!4d-74.182497!16s%2Fg%2F11x7gvq62h!3m5!1s0x8e3f9fdf4da26fc9:0xee91e30b3f19ff6b!8m2!3d4.574954!4d-74.2170569!16s%2Fg%2F11x2m3rw07?entry=ttu&g_ep=EgoyMDI1MTAyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-gold">
                     📍 Llévame al evento
                 </a>
                 <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
@@ -778,51 +897,15 @@
         </div>
     </section>
 
-    <!-- Sección 3: Cuenta regresiva -->
-    <section>
-        <div class="countdown">
-            <h2>⏰ Faltan pocos días para celebrar esta nueva vida ✨</h2>
-            <div class="countdown-timer">
-                <div class="time-box">
-                    <span class="number" id="days">00</span>
-                    <span class="label">Días</span>
-                </div>
-                <div class="time-box">
-                    <span class="number" id="hours">00</span>
-                    <span class="label">Horas</span>
-                </div>
-                <div class="time-box">
-                    <span class="number" id="minutes">00</span>
-                    <span class="label">Minutos</span>
-                </div>
-                <div class="time-box">
-                    <span class="number" id="seconds">00</span>
-                    <span class="label">Segundos</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección 4: Mapa -->
-    <section>
-        <div class="map-container">
-            <h2>📍 ¿Cómo llegar?</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.2158!2d-74.2177!3d4.5774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzQnMzguNiJOIDc0wrAxMycwMy43Ilc!5e0!3m2!1ses!2sco!4v1234567890" 
-                    allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <!-- Sección 5: Juego de globos -->
     <section>
         <div class="balloon-game">
             <h2>🎈 Rompe los Globos</h2>
-            <p>¡Haz clic en los globos para descubrir mensajes especiales!</p>
+            <p>¡Haz clic en los globos para descubrir una sorpresa.</p>
             <div class="balloon-container" id="balloonContainer"></div>
             <div id="letterProgress"></div>
         </div>
     </section>
 
-    <!-- Sección 6: Deseos -->
     <section>
         <div class="wishes-section">
             <h2>💌 Deja tu Deseo</h2>
@@ -831,13 +914,12 @@
                 <button onclick="submitWish()">✨ Enviar Deseo</button>
             </div>
             <h3 style="font-family: 'Playfair Display', serif; color: #d4a5a5; font-size: 2em; margin-bottom: 30px;">
-                💝 Deseos de Amor
+                💝 Muro de deseos
             </h3>
             <div class="wishes-board" id="wishesBoard"></div>
         </div>
     </section>
 
-    <!-- Sección 7: Cierre -->
     <section>
         <div class="finale">
             <h2>💕 Gracias 💕</h2>
@@ -847,29 +929,17 @@
                 será parte de esta hermosa historia.
             </p>
             <p class="signature">
-                Con amor,<br>
+                Con cariño,<br>
                 <strong>Vanessa, Cristian y toda la familia</strong>
             </p>
-            <div class="btn-container" style="margin-top: 40px;">
-                <a href="https://www.google.com/maps/search/?api=1&query=Calle+12+00-10+Este+Soacha" target="_blank" class="btn btn-gold">
-                    📍 Llévame al evento
-                </a>
-                <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
-                    💬 Contacto
-                </a>
-            </div>
         </div>
     </section>
 
     <script>
-        // ===== INICIALIZACIÓN =====
-        
-        // Crear partículas flotantes mágicas de fondo
         function createParticles() {
             const container = document.getElementById('particles');
             const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
             
-            // Partículas grandes flotantes
             for (let i = 0; i < 40; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -883,7 +953,6 @@
                 container.appendChild(particle);
             }
             
-            // Brillo giratorio (sparkles)
             for (let i = 0; i < 60; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -895,26 +964,36 @@
             }
         }
 
-        // ===== SCROLL Y VISIBILIDAD =====
+        let lastScrollTop = 0;
         
-        // Mostrar secciones al hacer scroll con efecto suave
         function checkScroll() {
             const sections = document.querySelectorAll('section');
+            const heroTitle = document.getElementById('heroTitle');
+            const countdownBanner = document.getElementById('countdownBanner');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 300) {
+                heroTitle.classList.add('hide');
+            } else {
+                heroTitle.classList.remove('hide');
+            }
+            
+            if (scrollTop > 500) {
+                countdownBanner.classList.add('compact');
+            } else {
+                countdownBanner.classList.remove('compact');
+            }
+            
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top < window.innerHeight * 0.75) {
                     section.classList.add('visible');
                 }
             });
+            
+            lastScrollTop = scrollTop;
         }
 
-        function scrollToNext() {
-            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-        }
-
-        // ===== CUENTA REGRESIVA =====
-        
-        // Actualiza el contador hasta la fecha del evento: 14 de noviembre de 2025, 3:00 p.m.
         function updateCountdown() {
             const eventDate = new Date('2025-11-14T15:00:00-05:00').getTime();
             const now = new Date().getTime();
@@ -938,32 +1017,72 @@
             }
         }
 
-        // ===== JUEGO DE GLOBOS =====
-        
-        // Easter eggs: letras ocultas del nombre de la bebé RENATA
         const babyNameLetters = ['R', 'E', 'N', 'A', 'T', 'A'];
         let foundLetters = [];
+        let foundLetterIndices = new Set();
         
-        // Mensajes aleatorios para los globos sin letra
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem('babyShowerProgress');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    foundLetters = data.foundLetters || [];
+                    foundLetterIndices = new Set(data.foundLetterIndices || []);
+                    if (foundLetterIndices.size > 0) {
+                        updateLetterProgress();
+                    }
+                }
+            } catch (e) {
+                console.log('Error al cargar progreso:', e);
+            }
+        }
+        
+        function saveProgress() {
+            try {
+                const data = {
+                    foundLetters: foundLetters,
+                    foundLetterIndices: Array.from(foundLetterIndices)
+                };
+                localStorage.setItem('babyShowerProgress', JSON.stringify(data));
+            } catch (e) {
+                console.log('Error al guardar progreso:', e);
+            }
+        }
+        
+        function resetGame() {
+            if (confirm('¿Estás seguro de que quieres reiniciar el juego? Se perderá todo el progreso.')) {
+                foundLetters = [];
+                foundLetterIndices = new Set();
+                localStorage.removeItem('babyShowerProgress');
+                document.getElementById('balloonContainer').innerHTML = '';
+                document.getElementById('letterProgress').innerHTML = '';
+                createBalloons();
+                createConfetti();
+            }
+        }
+        
         const balloonMessages = [
             '¡Nos vemos pronto en la fiesta! 🎉',
             '¡La abuela Mar está emocionada! 💕',
+            '¡La tía Catalina está emocionada! 💕',
+            '¡La abuelo David está inspirado! 💕',
+            '¡Los papas estan añorando su llegada! 💕',
             '¡Gracias por ser parte de esta historia!',
             'Algo hermoso está por revelarse…',
             '¡Una nueva luz llega al mundo! ✨',
-            '¡El amor está en el aire! 💝',
+            '¡La felicidad esta en aire! 💝',
             '¡Prepárate para celebrar! 🎊',
-            '¡Cada momento será mágico! 🌟'
+            '¡Cada momento será mágico! 🌟',
+            '¡Sigue buscando las letras! 🔍',
+            '¡Estás muy cerca! 💫'
         ];
 
-        // Crea los globos flotantes interactivos en la pantalla
         function createBalloons() {
             const container = document.getElementById('balloonContainer');
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec'];
-            const totalBalloons = 15;
+            const totalBalloons = 25;
             
-            // Mezclar las letras para que aparezcan en orden aleatorio
-            const shuffledLetters = [...babyNameLetters].sort(() => Math.random() - 0.5);
+            const letterBalloons = [...babyNameLetters];
             
             for (let i = 0; i < totalBalloons; i++) {
                 const balloon = document.createElement('div');
@@ -990,7 +1109,8 @@
                 `;
                 
                 if (isLetterBalloon) {
-                    balloon.dataset.letter = shuffledLetters[i];
+                    balloon.dataset.letter = letterBalloons[i];
+                    balloon.dataset.letterIndex = i;
                 } else {
                     balloon.dataset.message = balloonMessages[i % balloonMessages.length];
                 }
@@ -1000,14 +1120,11 @@
             }
         }
 
-        // Maneja el evento de hacer clic en un globo (reventar)
         function popBalloon(balloon) {
-            // Animación de explosión
             balloon.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
             balloon.style.transform = 'scale(2.5) rotate(180deg)';
             balloon.style.opacity = '0';
             
-            // Crear mini confeti en el punto de explosión
             const rect = balloon.getBoundingClientRect();
             for (let i = 0; i < 10; i++) {
                 createMiniConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -1016,17 +1133,17 @@
             setTimeout(() => {
                 balloon.remove();
                 const letter = balloon.dataset.letter;
+                const letterIndex = parseInt(balloon.dataset.letterIndex);
                 const message = balloon.dataset.message;
                 
-                if (letter) {
-                    showBalloonMessage(letter, true);
+                if (letter !== undefined) {
+                    showBalloonMessage(letter, true, letterIndex);
                 } else {
-                    showBalloonMessage(message, false);
+                    showBalloonMessage(message, false, null);
                 }
             }, 400);
         }
 
-        // Crea mini confeti en la posición del globo reventado
         function createMiniConfetti(x, y) {
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700'];
             const confetti = document.createElement('div');
@@ -1074,13 +1191,14 @@
             animate();
         }
 
-        // Muestra el mensaje del globo reventado
-        function showBalloonMessage(content, isLetter) {
+        function showBalloonMessage(content, isLetter, letterIndex) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'balloon-message';
             
-            if (isLetter && !foundLetters.includes(content)) {
-                foundLetters.push(content);
+            if (isLetter && !foundLetterIndices.has(letterIndex)) {
+                foundLetterIndices.add(letterIndex);
+                foundLetters.push({ letter: content, index: letterIndex });
+                saveProgress();
                 messageDiv.innerHTML = `
                     <h3>✨ ¡Descubriste una letra! ✨</h3>
                     <div class="letter-reveal">${content}</div>
@@ -1090,14 +1208,14 @@
                 updateLetterProgress();
                 createConfetti();
                 
-                // Verificar si completó todas las letras
-                if (foundLetters.length === babyNameLetters.length) {
+                if (foundLetterIndices.size === babyNameLetters.length) {
                     setTimeout(showFinalReveal, 1500);
                 }
             } else if (isLetter) {
                 messageDiv.innerHTML = `
-                    <h3>Ya encontraste esta letra</h3>
+                    <h3>✨ Ya encontraste esta letra ✨</h3>
                     <div class="letter-reveal">${content}</div>
+                    <p>¡Sigue buscando las letras que faltan!</p>
                     <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
                 `;
             } else {
@@ -1115,78 +1233,64 @@
             }, 4000);
         }
 
-        // Actualiza el progreso de letras encontradas
         function updateLetterProgress() {
             const progress = document.getElementById('letterProgress');
-            const sortedLetters = foundLetters.sort((a, b) => 
-                babyNameLetters.indexOf(a) - babyNameLetters.indexOf(b)
-            );
-            progress.innerHTML = `✨ Letras encontradas: ${sortedLetters.join(' - ')} (${foundLetters.length}/${babyNameLetters.length})`;
+            const sortedLetters = foundLetters
+                .sort((a, b) => a.index - b.index)
+                .map(item => item.letter);
+            progress.innerHTML = `✨ Letras encontradas: ${sortedLetters.join(' - ')} (${foundLetterIndices.size}/${babyNameLetters.length})`;
         }
 
-        // Muestra la revelación final del nombre completo: RENATA
         function showFinalReveal() {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'balloon-message';
-            messageDiv.style.padding = '60px 40px';
-            messageDiv.style.maxWidth = '550px';
-            messageDiv.innerHTML = `
-                <h3 style="font-size: 2.5em;">🎊 ¡Sorpresa! 🎊</h3>
-                <div class="letter-reveal" style="font-size: 5em; margin: 30px 0;">RENATA</div>
-                <p style="font-size: 1.3em; margin-top: 25px; line-height: 1.8;">
-                    💫 Una nueva luz llamada Renata llega para llenar de amor nuestras vidas.
-                </p>
-                <button class="close-message" style="margin-top: 30px; font-size: 1.2em;" onclick="this.parentElement.remove()">
-                    ✨ ¡Maravilloso! ✨
-                </button>
-            `;
-            document.body.appendChild(messageDiv);
+            const finalReveal = document.getElementById('finalReveal');
+            finalReveal.classList.add('show');
             
-            // Lluvia de confeti masiva
-            for (let i = 0; i < 150; i++) {
-                setTimeout(() => createConfetti(), i * 20);
+            for (let i = 0; i < 300; i++) {
+                setTimeout(() => createConfetti(), i * 10);
             }
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => createSparkleEffect(), i * 30);
+            }
+            
+            localStorage.setItem('babyShowerCompleted', 'true');
         }
 
-        // ===== SISTEMA DE DESEOS =====
-        
-        // Array para almacenar deseos en memoria durante la sesión
+        function closeFinalReveal() {
+            const finalReveal = document.getElementById('finalReveal');
+            finalReveal.classList.remove('show');
+        }
+
         let wishesDatabase = [];
 
-        // Envía un nuevo deseo
         function submitWish() {
             const textarea = document.getElementById('wishText');
             const wish = textarea.value.trim();
             
-            if (wish.length < 5) {
-                showFloatingMessage('Por favor escribe un deseo más largo 💕', 'error');
+            if (wish.length < 10) {
+                showFloatingMessage('Por favor escribe un deseo más significativo (mínimo 10 caracteres) 💕', 'error');
+                textarea.focus();
                 return;
             }
 
-            // Guardar el deseo
             wishesDatabase.unshift(wish);
-            
-            // Mostrar animación flotante
             showFloatingWish(wish);
             
-            // Actualizar tablero de deseos
             setTimeout(() => {
                 renderWishes();
                 textarea.value = '';
             }, 2000);
             
-            // Efectos especiales para palabras clave
-            const keywords = ['amor', 'luz', 'felicidad', 'bendición', 'alegría', 'renata'];
+            const keywords = ['amor', 'luz', 'felicidad', 'bendición', 'alegría', 'renata', 'hermosa', 'bendita', 'salud'];
             const lowerWish = wish.toLowerCase();
             
             if (keywords.some(keyword => lowerWish.includes(keyword))) {
                 createSparkleEffect();
             }
             
-            showFloatingMessage('¡Tu deseo ha sido enviado! 💝', 'success');
+            showFloatingMessage('¡Tu deseo ha sido enviado con amor! 💝', 'success');
         }
 
-        // Muestra el deseo flotando antes de agregarlo al tablero
         function showFloatingWish(wish) {
             const floatingDiv = document.createElement('div');
             floatingDiv.className = 'floating-wish';
@@ -1202,7 +1306,6 @@
             setTimeout(() => floatingDiv.remove(), 3000);
         }
 
-        // Mensaje flotante de notificación
         function showFloatingMessage(message, type) {
             const msgDiv = document.createElement('div');
             msgDiv.style.position = 'fixed';
@@ -1227,7 +1330,6 @@
             }, 3000);
         }
 
-        // Renderiza todos los deseos en el tablero
         function renderWishes() {
             const board = document.getElementById('wishesBoard');
             board.innerHTML = '';
@@ -1241,9 +1343,6 @@
             });
         }
 
-        // ===== EFECTOS VISUALES =====
-        
-        // Crea efecto de chispas doradas para palabras especiales
         function createSparkleEffect() {
             for (let i = 0; i < 30; i++) {
                 const sparkle = document.createElement('div');
@@ -1264,7 +1363,6 @@
             }
         }
 
-        // Crea confeti cayendo desde arriba
         function createConfetti() {
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700', '#fff'];
             for (let i = 0; i < 20; i++) {
@@ -1280,64 +1378,176 @@
             }
         }
 
-        // ===== CONTROL DE MÚSICA =====
-        
+        let ytPlayer = null;
         let musicPlaying = false;
-        const music = document.getElementById('bgMusic');
-        const musicControl = document.getElementById('musicControl');
+        let playerReady = false;
+        let userHasInteracted = false;
 
-        // Intenta reproducir música automáticamente con fade-in
-        function autoplayMusic() {
-            music.volume = 0;
-            music.play().then(() => {
-                musicPlaying = true;
-                musicControl.classList.add('playing');
-                musicControl.textContent = '🎵';
-                
-                // Fade in gradual
-                let vol = 0;
-                const fadeIn = setInterval(() => {
-                    if (vol < 0.4) {
-                        vol += 0.02;
-                        music.volume = vol;
-                    } else {
-                        clearInterval(fadeIn);
-                    }
-                }, 100);
-            }).catch(() => {
-                musicPlaying = false;
-                musicControl.classList.remove('playing');
-                musicControl.textContent = '🔇';
+        function loadYouTubeAPI() {
+            if (window.YT) {
+                initPlayer();
+                return;
+            }
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScript = document.getElementsByTagName('script')[0];
+            firstScript.parentNode.insertBefore(tag, firstScript);
+        }
+
+        window.onYouTubeIframeAPIReady = function() {
+            initPlayer();
+        };
+
+        function initPlayer() {
+            ytPlayer = new YT.Player('youtubeAudioContainer', {
+                height: '0',
+                width: '0',
+                videoId: '-C7GwTVg3II',
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    playlist: '-C7GwTVg3II',
+                    controls: 0,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    playsinline: 1,
+                    mute: 1
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
             });
         }
 
-        // Alterna reproducción/pausa de música
-        function toggleMusic() {
-            if (musicPlaying) {
-                music.pause();
-                musicControl.textContent = '🔇';
-                musicControl.classList.remove('playing');
-                musicPlaying = false;
-            } else {
-                music.play();
-                musicControl.textContent = '🎵';
-                musicControl.classList.add('playing');
+        function onPlayerReady(event) {
+            playerReady = true;
+            console.log('Reproductor listo - música iniciando muteada');
+            event.target.playVideo();
+            updateMusicButton();
+            setupMusicButton();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === 1) {
                 musicPlaying = true;
+            } else if (event.data === 2) {
+                musicPlaying = false;
+            }
+            updateMusicButton();
+        }
+
+        function setupMusicButton() {
+            const musicBtn = document.getElementById('musicControl');
+            if (musicBtn) {
+                const handleMusicToggle = function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    
+                    console.log('Botón de música presionado');
+                    
+                    if (!ytPlayer || !playerReady) {
+                        console.log('Reproductor no está listo');
+                        return;
+                    }
+
+                    try {
+                        if (!userHasInteracted) {
+                            ytPlayer.unMute();
+                            ytPlayer.setVolume(50);
+                            ytPlayer.playVideo();
+                            userHasInteracted = true;
+                            musicPlaying = true;
+                            console.log('Audio activado por botón');
+                            updateMusicButton();
+                            return;
+                        }
+
+                        if (musicPlaying) {
+                            ytPlayer.pauseVideo();
+                            musicPlaying = false;
+                            console.log('Música pausada');
+                        } else {
+                            ytPlayer.playVideo();
+                            musicPlaying = true;
+                            console.log('Música reproduciendo');
+                        }
+                        updateMusicButton();
+                    } catch (e) {
+                        console.log('Error al controlar música:', e);
+                    }
+                };
+                
+                musicBtn.addEventListener('click', handleMusicToggle);
+                musicBtn.addEventListener('touchend', handleMusicToggle);
+                console.log('Botón de música configurado');
             }
         }
 
-        // ===== EVENTOS Y EJECUCIÓN INICIAL =====
-        
+        function enableAudioOnFirstClick(event) {
+            console.log('Evento detectado:', event.type);
+            
+            if (event.target && (event.target.id === 'musicControl' || event.target.closest('#musicControl'))) {
+                console.log('Clic en botón de música - ignorado');
+                return;
+            }
+            
+            if (!ytPlayer || !playerReady) {
+                console.log('Reproductor no está listo aún');
+                return;
+            }
+            
+            if (userHasInteracted) {
+                console.log('Usuario ya interactuó');
+                return;
+            }
+            
+            try {
+                console.log('Intentando activar audio...');
+                ytPlayer.unMute();
+                ytPlayer.setVolume(50);
+                ytPlayer.playVideo();
+                userHasInteracted = true;
+                musicPlaying = true;
+                console.log('Música activada - usuario interactuó con la página');
+                updateMusicButton();
+            } catch (e) {
+                console.log('Error al activar audio:', e);
+            }
+        }
+
+        document.addEventListener('click', enableAudioOnFirstClick);
+        document.addEventListener('touchstart', enableAudioOnFirstClick, { passive: true });
+        document.addEventListener('touchend', enableAudioOnFirstClick, { passive: true });
+
+        function updateMusicButton() {
+            const musicBtn = document.getElementById('musicControl');
+            if (!musicBtn) return;
+            
+            if (musicPlaying && userHasInteracted) {
+                musicBtn.textContent = '🔊';
+                musicBtn.title = 'Pausar música';
+                musicBtn.classList.add('playing');
+            } else {
+                musicBtn.textContent = '🔇';
+                musicBtn.title = 'Reproducir música';
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        loadYouTubeAPI();
+
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
             createParticles();
+            loadProgress();
             createBalloons();
             checkScroll();
             updateCountdown();
             setInterval(updateCountdown, 1000);
             
-            // Confeti continuo en la última sección
             const lastSection = document.querySelector('.finale').parentElement;
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1352,7 +1562,6 @@
             }, { threshold: 0.5 });
             observer.observe(lastSection);
 
-            // Agregar algunos deseos de ejemplo
             wishesDatabase = [
                 '¡Que tu vida esté llena de amor y alegría, pequeña Renata! 💕',
                 'Bienvenida a este mundo hermoso, princesa ✨',
@@ -1361,18 +1570,6 @@
             ];
             renderWishes();
         });
-
-        // Permitir reproducir música con cualquier interacción
-        let musicInitialized = false;
-        function initMusic() {
-            if (!musicInitialized) {
-                autoplayMusic();
-                musicInitialized = true;
-            }
-        }
-        
-        document.addEventListener('click', initMusic, { once: true });
-        document.addEventListener('scroll', initMusic, { once: true });
     </script>
 </body>
 </html>
