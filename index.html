@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower - Una historia que comienza ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffd6e8 100%);
+            color: #5d4037;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flotantes mágicas */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatUp 15s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(0) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% { 
+                opacity: 0.8;
+            }
+            90% { 
+                opacity: 0.6;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Brillo giratorio sutil */
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+            border-radius: 50%;
+            animation: sparkleShine 3s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes sparkleShine {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(2) rotate(180deg);
+            }
+        }
+
+        /* Secciones principales */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Introducción narrativa */
+        .intro {
+            text-align: center;
+            max-width: 700px;
+            animation: fadeInGlow 2s ease;
+        }
+
+        @keyframes fadeInGlow {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .intro h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #d4a5a5;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(212, 165, 165, 0.5), 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(212, 165, 165, 0.5), 2px 2px 4px rgba(0,0,0,0.1); }
+            50% { text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1); }
+        }
+
+        .intro p {
+            font-size: 1.4em;
+            line-height: 2;
+            color: #6d4c41;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .scroll-hint {
+            font-size: 1.2em;
+            color: #f48fb1;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Detalles del evento */
+        .event-details {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 40px rgba(212, 165, 165, 0.2);
+            max-width: 700px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .event-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2), 0 0 50px rgba(212, 165, 165, 0.3);
+        }
+
+        .event-details h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #d4a5a5;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 165, 165, 0.3);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            font-size: 1.2em;
+            color: #6d4c41;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(248, 187, 208, 0.2);
+            transform: translateX(10px);
+        }
+
+        .detail-item span {
+            margin-right: 15px;
+            font-size: 1.8em;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+
+        /* Botones mejorados */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #d4a574 0%, #e8c99e 100%);
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        /* Cuenta regresiva mejorada */
+        .countdown {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .countdown h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.3em;
+            color: #d4a5a5;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 35px 25px;
+            min-width: 120px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 4s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .time-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .time-box .number {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #f48fb1;
+            display: block;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .time-box .label {
+            font-size: 1em;
+            color: #6d4c41;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mapa mejorado */
+        .map-container {
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+        }
+
+        .map-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #d4a5a5;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .map-container iframe:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+        }
+
+        /* Juego de globos mejorado */
+        .balloon-game {
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .balloon-game h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #d4a5a5;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
+        }
+
+        .balloon-game p {
+            font-size: 1.3em;
+            color: #6d4c41;
+            margin-bottom: 40px;
+        }
+
+        .balloon-container {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .balloon {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: floatBalloon 4s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+        }
+
+        .balloon:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3)) brightness(1.1);
+        }
+
+        @keyframes floatBalloon {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        .balloon svg {
+            width: 90px;
+            height: 110px;
+        }
+
+        .balloon-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+            z-index: 1000;
+            text-align: center;
+            max-width: 450px;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid rgba(212, 165, 165, 0.3);
+        }
+
+        @keyframes popIn {
+            0% { 
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .balloon-message h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #d4a5a5;
+            margin-bottom: 25px;
+        }
+
+        .letter-reveal {
+            font-size: 4em;
+            color: #f48fb1;
+            font-weight: bold;
+            margin: 25px 0;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 20px rgba(244, 143, 177, 0.5);
+            animation: letterPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes letterPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .close-message {
+            margin-top: 25px;
+            padding: 12px 35px;
+            background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(244, 143, 177, 0.3);
+        }
+
+        .close-message:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(244, 143, 177, 0.5);
+        }
+
+        #letterProgress {
+            margin-top: 40px;
+            font-size: 1.4em;
+            color: #d4a5a5;
+            font-weight: 600;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sección de deseos mejorada */
+        .wishes-section {
+            text-align: center;
+            max-width: 1000px;
+            width: 90%;
+        }
+
+        .wishes-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #d4a5a5;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
+        }
+
+        .wish-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .wish-form textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #f8bbd0;
+            border-radius: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1em;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .wish-form textarea:focus {
+            outline: none;
+            border-color: #f48fb1;
+            box-shadow: 0 0 20px rgba(244, 143, 177, 0.3);
+        }
+
+        .wish-form button {
+            background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
+            color: white;
+            padding: 15px 45px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(244, 143, 177, 0.3);
+            font-weight: 600;
+        }
+
+        .wish-form button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(244, 143, 177, 0.5);
+        }
+
+        .wishes-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wish-card::before {
+            content: '💝';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2.5em;
+            opacity: 0.7;
+        }
+
+        .wish-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .wish-card p {
+            font-size: 1.05em;
+            color: #6d4c41;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .floating-wish {
+            position: fixed;
+            animation: wishFloat 3s ease-out forwards;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        @keyframes wishFloat {
+            0% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-250px) scale(1.5);
+            }
+        }
+
+        /* Cierre poético mejorado */
+        .finale {
+            text-align: center;
+            max-width: 750px;
+        }
+
+        .finale h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #d4a5a5;
+            margin-bottom: 35px;
+            text-shadow: 0 0 20px rgba(212, 165, 165, 0.5);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        .finale p {
+            font-size: 1.4em;
+            line-height: 2;
+            color: #6d4c41;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .finale .signature {
+            margin-top: 50px;
+            font-size: 1.3em;
+            color: #f48fb1;
+            font-weight: 600;
+        }
+
+        /* Confeti mejorado */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            top: -20px;
+            z-index: 1000;
+            pointer-events: none;
+            animation: confettiFall 4s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to { 
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Control de música mejorado */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #d4a574 0%, #e8c99e 100%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.8em;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .music-control:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        .music-control.playing {
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro h1 { font-size: 2em; }
+            .intro p { font-size: 1.1em; }
+            .event-details { padding: 30px 25px; }
+            .event-details h2 { font-size: 2em; }
+            .detail-item { font-size: 1em; }
+            .time-box { padding: 25px 15px; min-width: 90px; }
+            .time-box .number { font-size: 2.5em; }
+            .balloon svg { width: 70px; height: 85px; }
+            .balloon-message { padding: 35px 25px; }
+            .letter-reveal { font-size: 3em; }
+            h2 { font-size: 2em !important; }
+            .finale h2 { font-size: 2.2em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes mágicas -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Control de música -->
+    <div class="music-control" id="musicControl" onclick="toggleMusic()">🎵</div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Sección 1: Introducción narrativa -->
+    <section class="visible">
+        <div class="intro">
+            <h1>✨ Érase una vez... ✨</h1>
+            <p>
+                Una historia que apenas comienza...<br>
+                Una pequeña luz está por llegar,<br>
+                y queremos celebrarlo contigo.
+            </p>
+            <div class="scroll-hint" onclick="scrollToNext()">
+                Desliza hacia abajo 🌸
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Detalles del evento -->
+    <section>
+        <div class="event-details">
+            <h2>📋 Detalles del Evento</h2>
+            <div class="detail-item">
+                <span>📅</span>
+                <div><strong>Fecha:</strong> 14 de noviembre de 2025</div>
+            </div>
+            <div class="detail-item">
+                <span>🕒</span>
+                <div><strong>Hora:</strong> 3:00 p.m.</div>
+            </div>
+            <div class="detail-item">
+                <span>📍</span>
+                <div><strong>Lugar:</strong> Calle 12 # 00-10 Este, Soacha</div>
+            </div>
+            <div class="detail-item">
+                <span>👩‍🍼</span>
+                <div><strong>Organiza:</strong> La abuela, Mar Barón</div>
+            </div>
+            <div class="btn-container">
+                <a href="https://www.google.com/maps/search/?api=1&query=Calle+12+00-10+Este+Soacha" target="_blank" class="btn btn-gold">
+                    📍 Llévame al evento
+                </a>
+                <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
+                    💬 Confirmar Asistencia
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Cuenta regresiva -->
+    <section>
+        <div class="countdown">
+            <h2>⏰ Faltan pocos días para celebrar esta nueva vida ✨</h2>
+            <div class="countdown-timer">
+                <div class="time-box">
+                    <span class="number" id="days">00</span>
+                    <span class="label">Días</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="hours">00</span>
+                    <span class="label">Horas</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="minutes">00</span>
+                    <span class="label">Minutos</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="seconds">00</span>
+                    <span class="label">Segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Mapa -->
+    <section>
+        <div class="map-container">
+            <h2>📍 ¿Cómo llegar?</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.2158!2d-74.2177!3d4.5774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzQnMzguNiJOIDc0wrAxMycwMy43Ilc!5e0!3m2!1ses!2sco!4v1234567890" 
+                    allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- Sección 5: Juego de globos -->
+    <section>
+        <div class="balloon-game">
+            <h2>🎈 Rompe los Globos</h2>
+            <p>¡Haz clic en los globos para descubrir mensajes especiales!</p>
+            <div class="balloon-container" id="balloonContainer"></div>
+            <div id="letterProgress"></div>
+        </div>
+    </section>
+
+    <!-- Sección 6: Deseos -->
+    <section>
+        <div class="wishes-section">
+            <h2>💌 Deja tu Deseo</h2>
+            <div class="wish-form">
+                <textarea id="wishText" placeholder="Escribe tu deseo para la bebé..." maxlength="300"></textarea>
+                <button onclick="submitWish()">✨ Enviar Deseo</button>
+            </div>
+            <h3 style="font-family: 'Playfair Display', serif; color: #d4a5a5; font-size: 2em; margin-bottom: 30px;">
+                💝 Deseos de Amor
+            </h3>
+            <div class="wishes-board" id="wishesBoard"></div>
+        </div>
+    </section>
+
+    <!-- Sección 7: Cierre -->
+    <section>
+        <div class="finale">
+            <h2>💕 Gracias 💕</h2>
+            <p>
+                Gracias por acompañarnos en esta nueva aventura.<br>
+                Cada sonrisa, cada abrazo, cada buen deseo<br>
+                será parte de esta hermosa historia.
+            </p>
+            <p class="signature">
+                Con amor,<br>
+                <strong>Vanessa, Cristian y toda la familia</strong>
+            </p>
+            <div class="btn-container" style="margin-top: 40px;">
+                <a href="https://www.google.com/maps/search/?api=1&query=Calle+12+00-10+Este+Soacha" target="_blank" class="btn btn-gold">
+                    📍 Llévame al evento
+                </a>
+                <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
+                    💬 Contacto
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== INICIALIZACIÓN =====
+        
+        // Crear partículas flotantes mágicas de fondo
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
+            
+            // Partículas grandes flotantes
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-10px';
+                particle.style.width = (Math.random() * 6 + 4) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+            
+            // Brillo giratorio (sparkles)
+            for (let i = 0; i < 60; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // ===== SCROLL Y VISIBILIDAD =====
+        
+        // Mostrar secciones al hacer scroll con efecto suave
+        function checkScroll() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        function scrollToNext() {
+            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }
+
+        // ===== CUENTA REGRESIVA =====
+        
+        // Actualiza el contador hasta la fecha del evento: 14 de noviembre de 2025, 3:00 p.m.
+        function updateCountdown() {
+            const eventDate = new Date('2025-11-14T15:00:00-05:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+
+        // ===== JUEGO DE GLOBOS =====
+        
+        // Easter eggs: letras ocultas del nombre de la bebé RENATA
+        const babyNameLetters = ['R', 'E', 'N', 'A', 'T', 'A'];
+        let foundLetters = [];
+        
+        // Mensajes aleatorios para los globos sin letra
+        const balloonMessages = [
+            '¡Nos vemos pronto en la fiesta! 🎉',
+            '¡La abuela Mar está emocionada! 💕',
+            '¡Gracias por ser parte de esta historia!',
+            'Algo hermoso está por revelarse…',
+            '¡Una nueva luz llega al mundo! ✨',
+            '¡El amor está en el aire! 💝',
+            '¡Prepárate para celebrar! 🎊',
+            '¡Cada momento será mágico! 🌟'
+        ];
+
+        // Crea los globos flotantes interactivos en la pantalla
+        function createBalloons() {
+            const container = document.getElementById('balloonContainer');
+            const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec'];
+            const totalBalloons = 15;
+            
+            // Mezclar las letras para que aparezcan en orden aleatorio
+            const shuffledLetters = [...babyNameLetters].sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < totalBalloons; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = (Math.random() * 75 + 5) + '%';
+                balloon.style.top = (Math.random() * 65 + 5) + '%';
+                balloon.style.animationDelay = Math.random() * 3 + 's';
+                balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const isLetterBalloon = i < babyNameLetters.length;
+                
+                balloon.innerHTML = `
+                    <svg viewBox="0 0 100 120">
+                        <defs>
+                            <radialGradient id="grad${i}" cx="35%" cy="35%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.8);stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:${color};stop-opacity:1" />
+                            </radialGradient>
+                        </defs>
+                        <ellipse cx="50" cy="50" rx="40" ry="50" fill="url(#grad${i})"/>
+                        <path d="M 50 100 Q 45 110 50 115" stroke="${color}" stroke-width="2" fill="none"/>
+                    </svg>
+                `;
+                
+                if (isLetterBalloon) {
+                    balloon.dataset.letter = shuffledLetters[i];
+                } else {
+                    balloon.dataset.message = balloonMessages[i % balloonMessages.length];
+                }
+                
+                balloon.onclick = () => popBalloon(balloon);
+                container.appendChild(balloon);
+            }
+        }
+
+        // Maneja el evento de hacer clic en un globo (reventar)
+        function popBalloon(balloon) {
+            // Animación de explosión
+            balloon.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            balloon.style.transform = 'scale(2.5) rotate(180deg)';
+            balloon.style.opacity = '0';
+            
+            // Crear mini confeti en el punto de explosión
+            const rect = balloon.getBoundingClientRect();
+            for (let i = 0; i < 10; i++) {
+                createMiniConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
+            
+            setTimeout(() => {
+                balloon.remove();
+                const letter = balloon.dataset.letter;
+                const message = balloon.dataset.message;
+                
+                if (letter) {
+                    showBalloonMessage(letter, true);
+                } else {
+                    showBalloonMessage(message, false);
+                }
+            }, 400);
+        }
+
+        // Crea mini confeti en la posición del globo reventado
+        function createMiniConfetti(x, y) {
+            const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700'];
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.left = x + 'px';
+            confetti.style.top = y + 'px';
+            confetti.style.width = '8px';
+            confetti.style.height = '8px';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '999';
+            
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 100 + 50;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            confetti.style.animation = 'none';
+            document.body.appendChild(confetti);
+            
+            let posX = x, posY = y, velY = vy;
+            const gravity = 300;
+            let opacity = 1;
+            const startTime = Date.now();
+            
+            function animate() {
+                const elapsed = (Date.now() - startTime) / 1000;
+                velY += gravity * 0.016;
+                posX += vx * 0.016;
+                posY += velY * 0.016;
+                opacity = Math.max(0, 1 - elapsed);
+                
+                confetti.style.left = posX + 'px';
+                confetti.style.top = posY + 'px';
+                confetti.style.opacity = opacity;
+                confetti.style.transform = `rotate(${elapsed * 360}deg)`;
+                
+                if (opacity > 0 && posY < window.innerHeight) {
+                    requestAnimationFrame(animate);
+                } else {
+                    confetti.remove();
+                }
+            }
+            animate();
+        }
+
+        // Muestra el mensaje del globo reventado
+        function showBalloonMessage(content, isLetter) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'balloon-message';
+            
+            if (isLetter && !foundLetters.includes(content)) {
+                foundLetters.push(content);
+                messageDiv.innerHTML = `
+                    <h3>✨ ¡Descubriste una letra! ✨</h3>
+                    <div class="letter-reveal">${content}</div>
+                    <p>Sigue reventando globos para descubrir el nombre completo...</p>
+                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                `;
+                updateLetterProgress();
+                createConfetti();
+                
+                // Verificar si completó todas las letras
+                if (foundLetters.length === babyNameLetters.length) {
+                    setTimeout(showFinalReveal, 1500);
+                }
+            } else if (isLetter) {
+                messageDiv.innerHTML = `
+                    <h3>Ya encontraste esta letra</h3>
+                    <div class="letter-reveal">${content}</div>
+                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <h3>${content}</h3>
+                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                `;
+            }
+            
+            document.body.appendChild(messageDiv);
+            setTimeout(() => {
+                if (messageDiv.parentElement) {
+                    messageDiv.remove();
+                }
+            }, 4000);
+        }
+
+        // Actualiza el progreso de letras encontradas
+        function updateLetterProgress() {
+            const progress = document.getElementById('letterProgress');
+            const sortedLetters = foundLetters.sort((a, b) => 
+                babyNameLetters.indexOf(a) - babyNameLetters.indexOf(b)
+            );
+            progress.innerHTML = `✨ Letras encontradas: ${sortedLetters.join(' - ')} (${foundLetters.length}/${babyNameLetters.length})`;
+        }
+
+        // Muestra la revelación final del nombre completo: RENATA
+        function showFinalReveal() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'balloon-message';
+            messageDiv.style.padding = '60px 40px';
+            messageDiv.style.maxWidth = '550px';
+            messageDiv.innerHTML = `
+                <h3 style="font-size: 2.5em;">🎊 ¡Sorpresa! 🎊</h3>
+                <div class="letter-reveal" style="font-size: 5em; margin: 30px 0;">RENATA</div>
+                <p style="font-size: 1.3em; margin-top: 25px; line-height: 1.8;">
+                    💫 Una nueva luz llamada Renata llega para llenar de amor nuestras vidas.
+                </p>
+                <button class="close-message" style="margin-top: 30px; font-size: 1.2em;" onclick="this.parentElement.remove()">
+                    ✨ ¡Maravilloso! ✨
+                </button>
+            `;
+            document.body.appendChild(messageDiv);
+            
+            // Lluvia de confeti masiva
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => createConfetti(), i * 20);
+            }
+        }
+
+        // ===== SISTEMA DE DESEOS =====
+        
+        // Array para almacenar deseos en memoria durante la sesión
+        let wishesDatabase = [];
+
+        // Envía un nuevo deseo
+        function submitWish() {
+            const textarea = document.getElementById('wishText');
+            const wish = textarea.value.trim();
+            
+            if (wish.length < 5) {
+                showFloatingMessage('Por favor escribe un deseo más largo 💕', 'error');
+                return;
+            }
+
+            // Guardar el deseo
+            wishesDatabase.unshift(wish);
+            
+            // Mostrar animación flotante
+            showFloatingWish(wish);
+            
+            // Actualizar tablero de deseos
+            setTimeout(() => {
+                renderWishes();
+                textarea.value = '';
+            }, 2000);
+            
+            // Efectos especiales para palabras clave
+            const keywords = ['amor', 'luz', 'felicidad', 'bendición', 'alegría', 'renata'];
+            const lowerWish = wish.toLowerCase();
+            
+            if (keywords.some(keyword => lowerWish.includes(keyword))) {
+                createSparkleEffect();
+            }
+            
+            showFloatingMessage('¡Tu deseo ha sido enviado! 💝', 'success');
+        }
+
+        // Muestra el deseo flotando antes de agregarlo al tablero
+        function showFloatingWish(wish) {
+            const floatingDiv = document.createElement('div');
+            floatingDiv.className = 'floating-wish';
+            floatingDiv.style.left = '50%';
+            floatingDiv.style.top = '50%';
+            floatingDiv.style.transform = 'translate(-50%, -50%)';
+            floatingDiv.innerHTML = `
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); max-width: 350px; border: 2px solid rgba(212, 165, 165, 0.3);">
+                    <p style="font-size: 1.15em; color: #6d4c41; font-style: italic; line-height: 1.6;">${wish}</p>
+                </div>
+            `;
+            document.body.appendChild(floatingDiv);
+            setTimeout(() => floatingDiv.remove(), 3000);
+        }
+
+        // Mensaje flotante de notificación
+        function showFloatingMessage(message, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.position = 'fixed';
+            msgDiv.style.top = '20px';
+            msgDiv.style.left = '50%';
+            msgDiv.style.transform = 'translateX(-50%)';
+            msgDiv.style.background = type === 'success' ? 'linear-gradient(135deg, #25D366, #20ba5a)' : 'linear-gradient(135deg, #f48fb1, #f8bbd0)';
+            msgDiv.style.color = 'white';
+            msgDiv.style.padding = '15px 30px';
+            msgDiv.style.borderRadius = '30px';
+            msgDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            msgDiv.style.zIndex = '10000';
+            msgDiv.style.fontSize = '1.1em';
+            msgDiv.style.fontWeight = '600';
+            msgDiv.textContent = message;
+            msgDiv.style.animation = 'fadeInUp 0.5s ease';
+            
+            document.body.appendChild(msgDiv);
+            setTimeout(() => {
+                msgDiv.style.animation = 'fadeIn 0.5s ease reverse';
+                setTimeout(() => msgDiv.remove(), 500);
+            }, 3000);
+        }
+
+        // Renderiza todos los deseos en el tablero
+        function renderWishes() {
+            const board = document.getElementById('wishesBoard');
+            board.innerHTML = '';
+            
+            wishesDatabase.forEach((wish, index) => {
+                const card = document.createElement('div');
+                card.className = 'wish-card';
+                card.style.animationDelay = (index * 0.1) + 's';
+                card.innerHTML = `<p>${wish}</p>`;
+                board.appendChild(card);
+            });
+        }
+
+        // ===== EFECTOS VISUALES =====
+        
+        // Crea efecto de chispas doradas para palabras especiales
+        function createSparkleEffect() {
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.width = '6px';
+                sparkle.style.height = '6px';
+                sparkle.style.background = '#ffd700';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.boxShadow = '0 0 15px #ffd700';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '999';
+                sparkle.style.animation = 'sparkleShine 2s ease-in-out';
+                
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 2000);
+            }
+        }
+
+        // Crea confeti cayendo desde arriba
+        function createConfetti() {
+            const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700', '#fff'];
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 6000);
+            }
+        }
+
+        // ===== CONTROL DE MÚSICA =====
+        
+        let musicPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+
+        // Intenta reproducir música automáticamente con fade-in
+        function autoplayMusic() {
+            music.volume = 0;
+            music.play().then(() => {
+                musicPlaying = true;
+                musicControl.classList.add('playing');
+                musicControl.textContent = '🎵';
+                
+                // Fade in gradual
+                let vol = 0;
+                const fadeIn = setInterval(() => {
+                    if (vol < 0.4) {
+                        vol += 0.02;
+                        music.volume = vol;
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 100);
+            }).catch(() => {
+                musicPlaying = false;
+                musicControl.classList.remove('playing');
+                musicControl.textContent = '🔇';
+            });
+        }
+
+        // Alterna reproducción/pausa de música
+        function toggleMusic() {
+            if (musicPlaying) {
+                music.pause();
+                musicControl.textContent = '🔇';
+                musicControl.classList.remove('playing');
+                musicPlaying = false;
+            } else {
+                music.play();
+                musicControl.textContent = '🎵';
+                musicControl.classList.add('playing');
+                musicPlaying = true;
+            }
+        }
+
+        // ===== EVENTOS Y EJECUCIÓN INICIAL =====
+        
+        window.addEventListener('scroll', checkScroll);
+        
+        window.addEventListener('load', () => {
+            createParticles();
+            createBalloons();
+            checkScroll();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Confeti continuo en la última sección
+            const lastSection = document.querySelector('.finale').parentElement;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setInterval(() => {
+                            for (let i = 0; i < 5; i++) {
+                                createConfetti();
+                            }
+                        }, 2000);
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(lastSection);
+
+            // Agregar algunos deseos de ejemplo
+            wishesDatabase = [
+                '¡Que tu vida esté llena de amor y alegría, pequeña Renata! 💕',
+                'Bienvenida a este mundo hermoso, princesa ✨',
+                'Que crezcas rodeada de felicidad y bendiciones 🌸',
+                '¡Renata, que tu luz ilumine cada día! 🌟'
+            ];
+            renderWishes();
+        });
+
+        // Permitir reproducir música con cualquier interacción
+        let musicInitialized = false;
+        function initMusic() {
+            if (!musicInitialized) {
+                autoplayMusic();
+                musicInitialized = true;
+            }
+        }
+        
+        document.addEventListener('click', initMusic, { once: true });
+        document.addEventListener('scroll', initMusic, { once: true });
+    </script>
+</body>
+</html>
