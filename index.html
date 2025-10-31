@@ -978,9 +978,6 @@
     </style>
 </head>
 <body>
-    <!-- Elemento de partículas eliminado -->
-
-    <!-- CAMBIO DE ACCESIBILIDAD: Añadido role="button" y aria-label dinámico (ver JS) -->
     <div class="music-control" id="musicControl" title="Reproducir música" role="button" aria-label="Reproducir música">🔇</div>
     <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden; position:fixed; bottom:0; left:0;"></div>
 
@@ -1784,27 +1781,24 @@
             // Inicia la carga de la API de YouTube
             loadYouTubeAPI();
             
-            const lastSection = document.querySelector('.finale').parentElement;
-            let confettiStarted = false; // Nueva bandera para controlar la ejecución única
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !confettiStarted) {
-                        confettiStarted = true; // El bucle se inicia
-                        
-                        // Inicia el intervalo de confeti solo una vez
-                        setInterval(() => {
-                            for (let i = 0; i < 5; i++) {
-                                createConfetti();
-                            }
-                        }, 2000);
-                        
-                        // Deja de observar la sección para que la función no se vuelva a disparar
-                        observer.unobserve(lastSection); 
-                    }
-                });
-            }, { threshold: 0.5 });
-            observer.observe(lastSection);
+            // --- CÓDIGO ELIMINADO: Se removió el IntersectionObserver que iniciaba el confeti ---
+            // const lastSection = document.querySelector('.finale').parentElement;
+            // let confettiStarted = false; 
+            // const observer = new IntersectionObserver((entries) => {
+            //     entries.forEach(entry => {
+            //         if (entry.isIntersecting && !confettiStarted) {
+            //             confettiStarted = true; 
+            //             setInterval(() => {
+            //                 for (let i = 0; i < 5; i++) {
+            //                     createConfetti();
+            //                 }
+            //             }, 2000);
+            //             observer.unobserve(lastSection); 
+            //         }
+            //     });
+            // }, { threshold: 0.5 });
+            // observer.observe(lastSection);
+            // --- FIN CÓDIGO ELIMINADO ---
 
             // Carga los deseos del muro al cargar la página desde Jsonbin.io
             fetchWishes(); 
@@ -1812,4 +1806,3 @@
     </script>
 </body>
 </html>
-
