@@ -27,7 +27,30 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- CÓDIGO DE PARTÍCULAS ELIMINADO --- */
+        /* --- NUEVO: ESTILOS PARA PARTÍCULAS DE BRILLO --- */
+        .sparkle-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10; /* Un poco por debajo del contenido principal */
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 6s ease-out forwards, fadeInOut 6s ease-in-out forwards;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+        /* --- FIN DE ESTILOS NUEVOS --- */
 
         section {
             min-height: 100vh;
@@ -128,13 +151,11 @@
             right: 0;
             width: 100%;
             text-align: center;
-            /* CAMBIO: Fondo más translúcido */
             background: rgba(252, 228, 236, 0.85); 
             padding: 20px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.2), 0 0 20px rgba(212, 165, 165, 0.3);
             z-index: 100;
             backdrop-filter: blur(10px);
-            /* CAMBIO: Transición aplicada a todos los cambios */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             border: none;
@@ -151,30 +172,28 @@
             opacity: 0;
         }
 
-        /* --- (NUEVO) ESTILOS PARA CONTADOR REDUCIDO --- */
         .countdown.shrunk {
-            padding: 8px 20px; /* Reducir padding vertical */
+            padding: 8px 20px; 
         }
         
         .countdown.shrunk h2 {
-            font-size: clamp(0.8em, 2vw, 1em); /* Fuente más pequeña */
+            font-size: clamp(0.8em, 2vw, 1em); 
             margin-bottom: 8px;
         }
 
         .countdown.shrunk .time-box {
-            padding: 8px 6px; /* Cajas más pequeñas */
+            padding: 8px 6px; 
             min-width: 55px;
             border-radius: 10px;
         }
 
         .countdown.shrunk .time-box .number {
-            font-size: clamp(1em, 2.5vw, 1.5em); /* Números más pequeños */
+            font-size: clamp(1em, 2.5vw, 1.5em); 
         }
 
         .countdown.shrunk .time-box .label {
-            font-size: clamp(0.45em, 1vw, 0.6em); /* Etiquetas más pequeñas */
+            font-size: clamp(0.45em, 1vw, 0.6em); 
         }
-        /* --- FIN DE ESTILOS NUEVOS --- */
 
         .countdown h2 {
             font-family: 'Playfair Display', serif;
@@ -183,7 +202,6 @@
             margin-bottom: 14px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
             padding: 0 10px;
-            /* CAMBIO: Transición para el cambio de tamaño */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -203,7 +221,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
-            /* CAMBIO: Transición para el cambio de tamaño */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -238,7 +255,6 @@
             font-family: 'Playfair Display', serif;
             position: relative;
             z-index: 1;
-            /* CAMBIO: Transición para el cambio de tamaño */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -249,7 +265,6 @@
             letter-spacing: 0.5px;
             position: relative;
             z-index: 1;
-            /* CAMBIO: Transición para el cambio de tamaño */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -945,9 +960,8 @@
                 margin-bottom: 10px;
             }
             
-            /* --- (NUEVO) ESTILOS MÓVIL PARA CONTADOR REDUCIDO --- */
             .countdown.shrunk h2 {
-                display: none; /* Ocultar el título en móvil cuando está reducido */
+                display: none; 
             }
             .countdown.shrunk {
                 padding: 5px 8px;
@@ -956,7 +970,6 @@
                 min-width: 45px;
                 padding: 6px 4px;
             }
-            /* --- FIN DE ESTILOS NUEVOS --- */
 
             .countdown-timer {
                 gap: 5px;
@@ -1131,7 +1144,7 @@
                     method: 'GET',
                     headers: {
                         'X-Master-Key': API_KEY, 
-                        'X-Bin-Meta': 'false' // Pide solo los datos, no la metadata
+                        'X-Bin-Meta': 'false' 
                     }
                 });
                 
@@ -1142,7 +1155,6 @@
                     throw new Error(`Error al obtener deseos: ${response.statusText} (${response.status})`);
                 }
                 
-                // Los datos devueltos son el array completo de deseos
                 const wishes = await response.json(); 
                 
                 if (!Array.isArray(wishes)) {
@@ -1179,20 +1191,16 @@
             button.textContent = 'Enviando...';
 
             try {
-                // 1. Obtener la lista actual de deseos
                 let currentWishes = await fetchWishes();
                 
-                // 2. Crear el nuevo deseo con marca de tiempo y ID
                 const newWish = {
                     id: Date.now(),
                     wish: newWishText,
                     date: new Date().toISOString()
                 };
 
-                // 3. Agregar el nuevo deseo a la lista (al inicio)
                 currentWishes.unshift(newWish); 
                 
-                // 4. Enviar la lista completa para SOBRESCRIBIR el Bin (Método PUT)
                 const response = await fetch(API_ENDPOINT, {
                     method: 'PUT',
                     headers: {
@@ -1213,7 +1221,6 @@
                 showFloatingWish(newWishText);
                 textarea.value = '';
                 
-                // 5. Actualizar la lista en el muro con el nuevo array
                 renderWishes(currentWishes);
                 
                 showFloatingMessage('¡Tu deseo ha sido enviado con amor! 💝', 'success');
@@ -1236,11 +1243,10 @@
             const board = document.getElementById('wishesBoard');
             board.innerHTML = '';
             
-            // Ordena para que los más recientes salgan primero, si los objetos tienen una propiedad 'date'
             const sortedWishes = [...wishes].sort((a, b) => {
                 const dateA = new Date(a.date || 0);
                 const dateB = new Date(b.date || 0);
-                return dateB - dateA; // Descenente: más reciente primero
+                return dateB - dateA; 
             });
 
             sortedWishes.forEach((item, index) => {
@@ -1249,12 +1255,10 @@
                 card.style.animationDelay = (index * 0.1) + 's';
                 
                 let formattedDate = '';
-                // Intentamos formatear la fecha solo si está presente
                 if (item.date) {
                     try {
                         const date = new Date(item.date);
                         if (!isNaN(date.getTime())) {
-                            // Formato corto para la fecha: dd/mm/aaaa
                             formattedDate = date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
                         }
                     } catch (e) {
@@ -1262,7 +1266,6 @@
                     }
                 }
                 
-                // Usamos item.wish para extraer el texto del deseo
                 card.innerHTML = `
                     <p>"${item.wish}"</p>
                     ${formattedDate ? `<small style="display: block; margin-top: 10px; color: #d4a5a5; font-style: normal; font-weight: 600;">— ${formattedDate}</small>` : ''}
@@ -1274,7 +1277,41 @@
 
         // --- FUNCIONES AUXILIARES ---
 
-        /* --- Función createParticles() eliminada --- */
+        // --- NUEVO: Función createParticles para brillos discretos ---
+        function createParticles() {
+            const colors = ['#fce4ec', '#ffffff', '#ffd700']; // Rosa, Blanco, Dorado
+            const sizes = [4, 6, 8, 10]; // Tamaños de las partículas
+
+            setInterval(() => {
+                const numParticles = Math.random() < 0.7 ? 1 : 2; // Más a menudo 1, a veces 2
+
+                for (let i = 0; i < numParticles; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'sparkle-particle';
+                    
+                    const size = sizes[Math.floor(Math.random() * sizes.length)];
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    particle.style.left = `${Math.random() * 100}vw`; // En toda la anchura de la pantalla
+                    particle.style.top = `${window.innerHeight + 20}px`; // Empieza desde abajo, fuera de la vista
+                    
+                    const animationDuration = Math.random() * 4 + 4; // Duración de 4 a 8 segundos
+                    particle.style.animationDuration = `${animationDuration}s`;
+                    particle.style.animationDelay = `${Math.random() * 0.5}s`; // Pequeño retraso aleatorio
+
+                    document.body.appendChild(particle);
+
+                    // Eliminar la partícula después de que termine su animación
+                    setTimeout(() => {
+                        particle.remove();
+                    }, animationDuration * 1000);
+                }
+            }, 300); // Genera nuevas partículas cada 300ms
+        }
+        // --- FIN NUEVO ---
+
 
         let isScrolling = false;
         let countdownShown = false;
@@ -1285,29 +1322,23 @@
                     const sections = document.querySelectorAll('section');
                     const countdownBanner = document.getElementById('countdownBanner');
                     
-                    // CAMBIO: Nueva lógica para el banner fijo y reducido
                     const heroSection = document.querySelector('.hero-section');
                     const heroRect = heroSection.getBoundingClientRect();
 
-                    // Cuando la parte inferior del hero esté a 20px o menos de la parte superior
-                    // de la ventana, significa que hemos pasado el hero.
                     if (heroRect.bottom < 20) {
                         if (!countdownShown) {
                             countdownBanner.classList.add('visible');
-                            countdownBanner.classList.add('shrunk'); // <-- AÑADIDO
+                            countdownBanner.classList.add('shrunk'); 
                             countdownShown = true;
                         }
                     } else {
-                        // Si volvemos a subir al hero
                         if (countdownShown) {
                             countdownBanner.classList.remove('visible');
-                            countdownBanner.classList.remove('shrunk'); // <-- AÑADIDO
+                            countdownBanner.classList.remove('shrunk'); 
                             countdownShown = false;
                         }
                     }
-                    // Fin de la lógica del banner
                     
-                    // Activar secciones visibles
                     sections.forEach(section => {
                         const rect = section.getBoundingClientRect();
                         if (rect.top < window.innerHeight * 0.75) {
@@ -1492,7 +1523,7 @@
                     <button class="close-message" onclick="closeMessage(this)">Continuar</button>
                 `;
                 updateLetterProgress();
-                createConfetti(); // Mantenemos el confeti individual aquí
+                createConfetti(); 
                 
                 if (foundLetterIndices.size === babyNameLetters.length) {
                     setTimeout(showFinalReveal, 1500);
@@ -1541,20 +1572,6 @@
         function showFinalReveal() {
             const finalReveal = document.getElementById('finalReveal');
             finalReveal.classList.add('show');
-            
-            // --- CAMBIO DE RENDIMIENTO (SOLICITUD 2) ---
-            // Se eliminaron los bucles de 'createConfetti' y 'createSparkleEffect' 
-            // que causaban lentitud al revelar el nombre.
-            /*
-            for (let i = 0; i < 300; i++) {
-                setTimeout(() => createConfetti(), i * 10);
-            }
-            
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => createSparkleEffect(), i * 30);
-            }
-            */
-            // --- FIN DEL CAMBIO ---
         }
 
         function closeFinalReveal() {
@@ -1666,11 +1683,11 @@
             ytPlayer = new YT.Player('youtubeAudioContainer', {
                 height: '0',
                 width: '0',
-                videoId: '9GaBMZRHM3U', // ID del video de YouTube
+                videoId: '9GaBMZRHM3U', 
                 playerVars: {
                     autoplay: 0,
                     loop: 1,
-                    playlist: '9GaBMZRHM3U', // Necesario para que loop funcione en un solo video
+                    playlist: '9GaBMZRHM3U', 
                     controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
@@ -1687,7 +1704,6 @@
         function onPlayerReady(event) {
             playerReady = true;
             updateMusicButton();
-            // Los listeners de interacción se activan solo DESPUÉS de que el reproductor esté listo.
             setupMusicControl();
             initFirstInteractionListeners();
         }
@@ -1718,7 +1734,7 @@
             if (!musicBtn) return;
             
             musicBtn.addEventListener('click', function(e) {
-                e.stopPropagation(); // Evita que el clic en el botón cuente como "primera interacción"
+                e.stopPropagation(); 
                 toggleMusic();
             });
         }
@@ -1747,12 +1763,12 @@
             if (musicPlaying) {
                 musicBtn.textContent = '🔊';
                 musicBtn.title = 'Pausar música';
-                musicBtn.setAttribute('aria-label', 'Pausar música'); // <-- CAMBIO ACCESIBILIDAD
+                musicBtn.setAttribute('aria-label', 'Pausar música'); 
                 musicBtn.classList.add('playing');
             } else {
                 musicBtn.textContent = '🔇';
                 musicBtn.title = 'Reproducir música';
-                musicBtn.setAttribute('aria-label', 'Reproducir música'); // <-- CAMBIO ACCESIBILIDAD
+                musicBtn.setAttribute('aria-label', 'Reproducir música'); 
                 musicBtn.classList.remove('playing');
             }
         }
@@ -1762,7 +1778,6 @@
                 handleFirstInteraction();
             };
             
-            // Estos listeners se agregarán ahora solo DESPUÉS de onPlayerReady
             document.addEventListener('click', handleInteraction, { once: true });
             document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
         }
@@ -1772,35 +1787,14 @@
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
-            /* Llamada a createParticles() eliminada */
+            createParticles(); // <-- NUEVO: Llamada para crear las partículas
             createBalloons();
             checkScroll();
             updateCountdown();
             setInterval(updateCountdown, 1000);
             
-            // Inicia la carga de la API de YouTube
             loadYouTubeAPI();
             
-            // --- CÓDIGO ELIMINADO: Se removió el IntersectionObserver que iniciaba el confeti ---
-            // const lastSection = document.querySelector('.finale').parentElement;
-            // let confettiStarted = false; 
-            // const observer = new IntersectionObserver((entries) => {
-            //     entries.forEach(entry => {
-            //         if (entry.isIntersecting && !confettiStarted) {
-            //             confettiStarted = true; 
-            //             setInterval(() => {
-            //                 for (let i = 0; i < 5; i++) {
-            //                     createConfetti();
-            //                 }
-            //             }, 2000);
-            //             observer.unobserve(lastSection); 
-            //         }
-            //     });
-            // }, { threshold: 0.5 });
-            // observer.observe(lastSection);
-            // --- FIN CÓDIGO ELIMINADO ---
-
-            // Carga los deseos del muro al cargar la página desde Jsonbin.io
             fetchWishes(); 
         });
     </script>
