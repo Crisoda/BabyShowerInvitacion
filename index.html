@@ -6,6 +6,8 @@
     <title>Baby Shower - Te invitamos! ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* --- ESTILOS OPTIMIZADOS PARA RENDIMIENTO --- */
+
         html {
             scroll-behavior: smooth;
         }
@@ -17,6 +19,7 @@
         }
 
         body {
+            /* Mantenemos el fondo visualmente atractivo sin partículas costosas */
             font-family: 'Quicksand', sans-serif;
             background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffd6e8 100%);
             color: #5d4037;
@@ -27,82 +30,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            animation: floatUp 15s infinite ease-in-out;
-            opacity: 0;
-        }
-
-        @keyframes floatUp {
-            0% { 
-                transform: translateY(0) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% { 
-                opacity: 0.8;
-            }
-            90% { 
-                opacity: 0.6;
-            }
-            100% { 
-                transform: translateY(-100vh) translateX(100px) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #ffd700 0%, transparent 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
-            animation: sparkleShine 3s infinite ease-in-out;
-            opacity: 0;
-        }
-
-        @keyframes sparkleShine {
-            0%, 100% { 
-                opacity: 0; 
-                transform: scale(0) rotate(0deg);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(2.5) rotate(180deg);
-            }
-        }
-
-        .glow-orb {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
-            animation: glowFloat 8s infinite ease-in-out;
-            opacity: 0.4;
-            filter: blur(20px);
-        }
-
-        @keyframes glowFloat {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translate(50px, -80px) scale(1.5);
-                opacity: 0.6;
-            }
-        }
+        /* Se eliminaron las clases .floating-particles, .particle, .sparkle, .glow-orb y sus @keyframes para mejorar el rendimiento */
 
         section {
             min-height: 100vh;
@@ -114,6 +42,7 @@
             position: relative;
             z-index: 2;
             opacity: 0;
+            /* Se usa transform para animación fluida (acelerada por GPU) */
             transform: translateY(50px);
             transition: opacity 1s ease, transform 1s ease;
         }
@@ -140,6 +69,7 @@
         .hero-content {
             max-width: 800px;
             padding: 0;
+            /* Se mantiene la animación de aparición */
             animation: heroAppear 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             z-index: 3;
@@ -162,6 +92,7 @@
             color: #d4a5a5;
             margin-bottom: 20px;
             text-shadow: 0 0 40px rgba(212, 165, 165, 1), 0 0 60px rgba(244, 143, 177, 0.8), 0 5px 15px rgba(0,0,0,0.3);
+            /* Se mantiene el brillo del título */
             animation: titleGlow 3s ease-in-out infinite;
             line-height: 1.2;
         }
@@ -185,6 +116,7 @@
         .hero-content .scroll-hint {
             font-size: clamp(1.1em, 4vw, 1.7em);
             color: #fff;
+            /* Se mantiene el efecto de rebote */
             animation: bounce 2s infinite;
             margin-top: 20px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3), 0 0 20px rgba(248, 187, 208, 0.8);
@@ -262,6 +194,7 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
+            /* Animación de brillo sutil para reemplazar partículas */
             animation: rotateGlow 4s linear infinite;
         }
 
@@ -454,6 +387,7 @@
             position: absolute;
             cursor: pointer;
             transition: all 0.3s ease;
+            /* Se mantiene la animación flotante del globo, que es menos costosa que las partículas */
             animation: floatBalloon 4s ease-in-out infinite;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
@@ -853,6 +787,7 @@
             top: -20px;
             z-index: 1000;
             pointer-events: none;
+            /* Se mantiene la animación de confeti solo para momentos de celebración (revelación de nombre) */
             animation: confettiFall 4s linear forwards;
         }
 
@@ -1006,8 +941,6 @@
     </style>
 </head>
 <body>
-    <div class="floating-particles" id="particles"></div>
-
     <div class="music-control" id="musicControl" title="Reproducir música">🔇</div>
     <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden; position:fixed; bottom:0; left:0;"></div>
 
@@ -1140,44 +1073,9 @@
     </footer>
 
     <script>
+        // Función createParticles eliminada para mejorar rendimiento.
         function createParticles() {
-            const container = document.getElementById('particles');
-            const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
-            
-            for (let i = 0; i < 40; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.bottom = '-10px';
-                particle.style.width = (Math.random() * 6 + 4) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                container.appendChild(particle);
-            }
-            
-            for (let i = 0; i < 80; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.top = Math.random() * 100 + '%';
-                sparkle.style.animationDelay = Math.random() * 3 + 's';
-                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                container.appendChild(sparkle);
-            }
-
-            for (let i = 0; i < 15; i++) {
-                const orb = document.createElement('div');
-                orb.className = 'glow-orb';
-                orb.style.left = Math.random() * 100 + '%';
-                orb.style.top = Math.random() * 100 + '%';
-                orb.style.width = (Math.random() * 100 + 50) + 'px';
-                orb.style.height = orb.style.width;
-                orb.style.animationDelay = Math.random() * 8 + 's';
-                orb.style.animationDuration = (Math.random() * 5 + 8) + 's';
-                container.appendChild(orb);
-            }
+            // No implementado - Eliminado para optimización.
         }
 
         let isScrolling = false;
@@ -1319,6 +1217,7 @@
             balloon.style.opacity = '0';
             
             const rect = balloon.getBoundingClientRect();
+            // Mantenemos confeti al explotar el globo para mantener impacto visual
             for (let i = 0; i < 10; i++) {
                 createMiniConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
             }
@@ -1365,6 +1264,7 @@
             
             function animate() {
                 const elapsed = (Date.now() - startTime) / 1000;
+                // Usamos un loop requestAnimationFrame por cada confeti, pero son pocos y de corta duración
                 velY += gravity * 0.016;
                 posX += vx * 0.016;
                 posY += velY * 0.016;
@@ -1424,6 +1324,7 @@
             document.body.appendChild(overlay);
             
             setTimeout(() => {
+                // Si el usuario no lo cierra, se cierra automáticamente
                 if (overlay.parentElement) {
                     overlay.remove();
                 }
@@ -1451,12 +1352,13 @@
             const finalReveal = document.getElementById('finalReveal');
             finalReveal.classList.add('show');
             
-            for (let i = 0; i < 300; i++) {
-                setTimeout(() => createConfetti(), i * 10);
+            // Reducción y limitación del confeti y efectos de brillo (sparkle) al final
+            for (let i = 0; i < 150; i++) { // Se redujo la cantidad a la mitad
+                setTimeout(() => createConfetti(), i * 20); // Intervalo más lento
             }
             
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => createSparkleEffect(), i * 30);
+            for (let i = 0; i < 50; i++) { // Se redujo la cantidad a la mitad
+                setTimeout(() => createSparkleEffect(), i * 60); // Intervalo más lento
             }
         }
 
@@ -1489,6 +1391,7 @@
             const lowerWish = wish.toLowerCase();
             
             if (keywords.some(keyword => lowerWish.includes(keyword))) {
+                // Se mantiene el efecto de brillo (sparkle) solo para palabras clave, es un efecto fugaz.
                 createSparkleEffect();
             }
             
@@ -1550,7 +1453,7 @@
         }
 
         function createSparkleEffect() {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 15; i++) { /* Se redujo la cantidad de sparkles generados en este efecto */
                 const sparkle = document.createElement('div');
                 sparkle.style.position = 'fixed';
                 sparkle.style.left = Math.random() * 100 + '%';
@@ -1571,7 +1474,7 @@
 
         function createConfetti() {
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700', '#fff'];
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 5; i++) { /* Se redujo la cantidad de confeti generado por llamada */
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
@@ -1707,7 +1610,7 @@
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
-            createParticles();
+            // createParticles(); // Eliminado
             createBalloons();
             checkScroll();
             updateCountdown();
@@ -1724,11 +1627,10 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Se reduce la frecuencia de confeti al final
                         setInterval(() => {
-                            for (let i = 0; i < 5; i++) {
-                                createConfetti();
-                            }
-                        }, 2000);
+                            createConfetti(); // createConfetti genera solo 5 por llamada ahora
+                        }, 4000); // Se incrementó el intervalo de 2000 a 4000ms
                     }
                 });
             }, { threshold: 0.5 });
