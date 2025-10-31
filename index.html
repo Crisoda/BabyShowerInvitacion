@@ -1843,15 +1843,24 @@
                 initFirstInteractionListeners();
             }, 1000);
             
-            const lastSection = document.querySelector('.finale').parentElement;
+// CÓDIGO CORREGIDO (Reemplaza el bloque anterior)
+const lastSection = document.querySelector('.finale').parentElement;
+let confettiStarted = false; // Nueva bandera para controlar la ejecución única
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && !confettiStarted) {
+                        confettiStarted = true; // El bucle se inicia
+                        
+                        // Inicia el intervalo de confeti solo una vez
                         setInterval(() => {
                             for (let i = 0; i < 5; i++) {
                                 createConfetti();
                             }
                         }, 2000);
+                        
+                        // Deja de observar la sección para que la función no se vuelva a disparar
+                        observer.unobserve(lastSection); 
                     }
                 });
             }, { threshold: 0.5 });
