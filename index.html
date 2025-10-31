@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* FLOATING PARTICLES Y BRILLOS */
         .floating-particles {
             position: fixed;
             top: 0;
@@ -109,12 +108,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 20px;
+            padding: 80px 20px 60px;
             position: relative;
             z-index: 2;
             opacity: 0;
             transform: translateY(50px);
-            transition: all 1.2s ease;
+            transition: opacity 1s ease, transform 1s ease;
         }
 
         section.visible {
@@ -122,7 +121,6 @@
             transform: translateY(0);
         }
 
-        /* HERO SECTION MEJORADO - SIN TARJETA */
         .hero-section {
             position: relative;
             height: 100vh;
@@ -134,17 +132,15 @@
             transform: translateY(0) !important;
             padding: 40px 20px;
             text-align: center;
+            z-index: 3;
         }
 
         .hero-content {
             max-width: 800px;
             padding: 0;
-            background: transparent;
-            border-radius: 0;
-            box-shadow: none;
-            backdrop-filter: none;
-            border: none;
             animation: heroAppear 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 3;
         }
 
         @keyframes heroAppear {
@@ -196,22 +192,24 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* COUNTDOWN MEJORADO - 30% MÁS PEQUEÑO */
         .countdown {
             position: fixed;
             top: -100%;
-            left: 0;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
             background: rgba(252, 228, 236, 0.98);
-            padding: 21px 14px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+            padding: 20px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2), 0 0 20px rgba(212, 165, 165, 0.3);
             z-index: 100;
             backdrop-filter: blur(10px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: top center;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transform: scale(0.7);
+            border-radius: 0 0 30px 30px;
+            max-width: 90%;
+            width: auto;
+            min-width: min(600px, 90vw);
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .countdown.visible {
@@ -220,8 +218,9 @@
         }
 
         .countdown.compact {
-            padding: 8px 10px;
+            padding: 12px 15px;
             background: rgba(252, 228, 236, 0.95);
+            border-radius: 0 0 25px 25px;
         }
 
         .countdown h2 {
@@ -234,7 +233,7 @@
         }
 
         .countdown.compact h2 {
-            font-size: clamp(0.63em, 1.4vw, 0.84em);
+            font-size: clamp(0.7em, 1.4vw, 0.9em);
             margin-bottom: 7px;
         }
 
@@ -260,9 +259,9 @@
         }
 
         .countdown.compact .time-box {
-            padding: 5.6px 7px;
-            min-width: 42px;
-            border-radius: 8px;
+            padding: 7px;
+            min-width: 50px;
+            border-radius: 10px;
         }
 
         .time-box::before {
@@ -298,11 +297,11 @@
         }
 
         .countdown.compact .time-box .number {
-            font-size: clamp(0.84em, 1.75vw, 1.05em);
+            font-size: clamp(1em, 1.75vw, 1.3em);
         }
 
         .time-box .label {
-            font-size: clamp(0.49em, 1.05vw, 0.63em);
+            font-size: clamp(0.55em, 1.05vw, 0.7em);
             color: #6d4c41;
             text-transform: uppercase;
             letter-spacing: 0.7px;
@@ -312,11 +311,10 @@
         }
 
         .countdown.compact .time-box .label {
-            font-size: clamp(0.42em, 0.84vw, 0.52em);
+            font-size: clamp(0.45em, 0.84vw, 0.55em);
             letter-spacing: 0.35px;
         }
 
-        /* CONTENEDOR DE CONTENIDO */
         .content-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -324,7 +322,6 @@
             padding: 0 20px;
         }
 
-        /* EVENT DETAILS CARD */
         .event-details {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
@@ -375,7 +372,6 @@
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
         }
 
-        /* MAPA CORREGIDO */
         .map-container {
             width: 100%;
             height: 300px;
@@ -391,7 +387,6 @@
             border: none;
         }
 
-        /* BOTONES */
         .btn-container {
             display: flex;
             gap: 15px;
@@ -447,7 +442,6 @@
             color: white;
         }
 
-        /* BALLOON GAME */
         .balloon-game {
             text-align: center;
             width: 100%;
@@ -500,7 +494,6 @@
             height: 100px;
         }
 
-        /* MENSAJE DE GLOBO MEJORADO - CENTRADO */
         .balloon-message {
             position: fixed;
             top: 50%;
@@ -518,7 +511,6 @@
             border: 3px solid rgba(212, 165, 165, 0.3);
         }
 
-        /* OVERLAY PARA MENSAJES */
         .message-overlay {
             position: fixed;
             top: 0;
@@ -531,6 +523,7 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes popIn {
@@ -542,6 +535,11 @@
                 transform: translate(-50%, -50%) scale(1) rotate(0deg);
                 opacity: 1;
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .balloon-message h3 {
@@ -596,7 +594,6 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        /* FINAL REVEAL MEJORADO - TEXTO MÁS PEQUEÑO */
         .final-reveal {
             position: fixed;
             top: 0;
@@ -627,8 +624,26 @@
             max-height: 90vh;
             overflow: hidden;
             width: 500px;
-            animation: popIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: smoothReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 4px solid rgba(212, 165, 165, 0.5);
+        }
+
+        @keyframes smoothReveal {
+            0% { 
+                opacity: 0;
+                transform: scale(0.3) translateY(100px) rotate(-15deg);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-10px) rotate(2deg);
+            }
+            80% {
+                transform: scale(0.98) translateY(5px) rotate(-1deg);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+            }
         }
 
         .final-reveal-content h2 {
@@ -675,12 +690,6 @@
             box-shadow: 0 15px 40px rgba(244, 143, 177, 0.6);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* WISHES SECTION */
         .wishes-section {
             text-align: center;
             max-width: 1000px;
@@ -813,7 +822,6 @@
             }
         }
 
-        /* FINALE CON FOOTER */
         .finale {
             text-align: center;
             max-width: 750px;
@@ -838,7 +846,6 @@
             margin-bottom: 25px;
         }
 
-        /* FOOTER */
         .footer {
             position: fixed;
             bottom: 0;
@@ -860,7 +867,6 @@
             font-family: 'Quicksand', sans-serif;
         }
 
-        /* CONFETTI */
         .confetti {
             position: fixed;
             width: 12px;
@@ -878,7 +884,6 @@
             }
         }
 
-        /* MUSIC CONTROL */
         .music-control {
             position: fixed;
             bottom: 30px;
@@ -912,10 +917,13 @@
             50% { transform: scale(1.1); }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             section {
-                padding: 40px 15px;
+                padding: 60px 15px 40px;
+            }
+
+            .hero-section {
+                padding: 40px 20px;
             }
 
             .hero-content {
@@ -947,18 +955,22 @@
                 right: 20px;
             }
 
+            .countdown {
+                min-width: 90vw;
+            }
+
             .countdown-timer {
                 gap: 7px;
             }
 
             .time-box {
-                min-width: 49px;
+                min-width: 55px;
                 padding: 10px 7px;
             }
 
             .countdown.compact .time-box {
-                min-width: 38px;
-                padding: 4px 5px;
+                min-width: 45px;
+                padding: 5px;
             }
 
             .final-reveal-content {
@@ -978,6 +990,7 @@
         @media (max-width: 480px) {
             .balloon-message {
                 padding: 30px 20px;
+                width: 90%;
             }
 
             .btn-container {
@@ -991,6 +1004,14 @@
 
             .finale {
                 padding-bottom: 70px;
+            }
+
+            .countdown {
+                padding: 15px 10px;
+            }
+
+            .countdown.compact {
+                padding: 10px;
             }
         }
     </style>
@@ -1130,12 +1151,10 @@
     </footer>
 
     <script>
-        // === PARTICLES Y BRILLOS MEJORADOS ===
         function createParticles() {
             const container = document.getElementById('particles');
             const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
             
-            // Partículas flotantes
             for (let i = 0; i < 40; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -1149,7 +1168,6 @@
                 container.appendChild(particle);
             }
             
-            // Destellos (sparkles) - más numerosos y visibles
             for (let i = 0; i < 80; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -1160,7 +1178,6 @@
                 container.appendChild(sparkle);
             }
 
-            // Orbes luminosos
             for (let i = 0; i < 15; i++) {
                 const orb = document.createElement('div');
                 orb.className = 'glow-orb';
@@ -1174,7 +1191,6 @@
             }
         }
 
-        // === SCROLL HANDLING MEJORADO ===
         let isScrolling = false;
         let countdownShown = false;
         
@@ -1185,20 +1201,17 @@
                     const countdownBanner = document.getElementById('countdownBanner');
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    // Mostrar countdown al salir del hero
                     if (scrollTop > window.innerHeight * 0.5 && !countdownShown) {
                         countdownBanner.classList.add('visible');
                         countdownShown = true;
                     }
                     
-                    // Hacer countdown compacto después de más scroll
                     if (scrollTop > window.innerHeight * 1.2) {
                         countdownBanner.classList.add('compact');
                     } else if (countdownShown) {
                         countdownBanner.classList.remove('compact');
                     }
                     
-                    // Activar secciones visibles
                     sections.forEach(section => {
                         const rect = section.getBoundingClientRect();
                         if (rect.top < window.innerHeight * 0.75) {
@@ -1212,7 +1225,6 @@
             }
         }
 
-        // === COUNTDOWN ===
         function updateCountdown() {
             const eventDate = new Date('2025-11-14T15:00:00-05:00').getTime();
             const now = new Date().getTime();
@@ -1236,23 +1248,9 @@
             }
         }
 
-        // === BALLOON GAME ===
         const babyNameLetters = ['R', 'E', 'N', 'A', 'T', 'A'];
         let foundLetters = [];
         let foundLetterIndices = new Set();
-        
-        function loadProgress() {
-            foundLetters = [];
-            foundLetterIndices = new Set();
-        }
-        
-        function saveProgress() {
-            console.log('Progreso:', foundLetters.length, '/', babyNameLetters.length);
-        }
-        
-        function resetGame() {
-            // Función removida - botón eliminado
-        }
         
         const balloonMessages = [
             '¡Nos vemos pronto en la fiesta! 🎉',
@@ -1391,7 +1389,6 @@
             if (isLetter && !foundLetterIndices.has(letterIndex)) {
                 foundLetterIndices.add(letterIndex);
                 foundLetters.push({ letter: content, index: letterIndex });
-                saveProgress();
                 messageDiv.innerHTML = `
                     <h3>✨ ¡Descubriste una letra! ✨</h3>
                     <div class="letter-reveal">${content}</div>
@@ -1463,7 +1460,6 @@
             finalReveal.classList.remove('show');
         }
 
-        // === WISHES ===
         let wishesDatabase = [];
 
         function submitWish() {
@@ -1583,11 +1579,10 @@
             }
         }
 
-        // === MUSIC CONTROL CON YOUTUBE ===
         let ytPlayer = null;
         let musicPlaying = false;
         let playerReady = false;
-        let userHasInteracted = false;
+        let firstInteraction = false;
 
         function loadYouTubeAPI() {
             if (window.YT && window.YT.Player) {
@@ -1629,18 +1624,28 @@
 
         function onPlayerReady(event) {
             playerReady = true;
-            console.log('Reproductor de YouTube listo');
             updateMusicButton();
         }
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
                 musicPlaying = true;
-                userHasInteracted = true;
             } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
                 musicPlaying = false;
             }
             updateMusicButton();
+        }
+
+        function handleFirstInteraction() {
+            if (!firstInteraction && playerReady && ytPlayer) {
+                firstInteraction = true;
+                try {
+                    ytPlayer.playVideo();
+                    ytPlayer.setVolume(50);
+                } catch (error) {
+                    console.error('Error al reproducir:', error);
+                }
+            }
         }
 
         function setupMusicControl() {
@@ -1655,23 +1660,18 @@
 
         function toggleMusic() {
             if (!ytPlayer || !playerReady) {
-                console.log('Reproductor no está listo');
                 return;
             }
             
             try {
                 if (musicPlaying) {
                     ytPlayer.pauseVideo();
-                    musicPlaying = false;
                 } else {
                     ytPlayer.playVideo();
                     ytPlayer.setVolume(50);
-                    musicPlaying = true;
-                    userHasInteracted = true;
                 }
-                updateMusicButton();
             } catch (e) {
-                console.log('Error al controlar música:', e);
+                console.error('Error al controlar música:', e);
             }
         }
 
@@ -1679,7 +1679,7 @@
             const musicBtn = document.getElementById('musicControl');
             if (!musicBtn) return;
             
-            if (musicPlaying && userHasInteracted) {
+            if (musicPlaying) {
                 musicBtn.textContent = '🔊';
                 musicBtn.title = 'Pausar música';
                 musicBtn.classList.add('playing');
@@ -1690,45 +1690,31 @@
             }
         }
 
-        // Intentar reproducir música con la primera interacción
-        function enableMusicOnFirstInteraction() {
-            if (!userHasInteracted && ytPlayer && playerReady) {
-                try {
-                    ytPlayer.playVideo();
-                    ytPlayer.setVolume(50);
-                    userHasInteracted = true;
-                    musicPlaying = true;
-                    updateMusicButton();
-                    console.log('Música activada con interacción del usuario');
-                } catch (e) {
-                    console.log('Esperando interacción explícita del usuario');
-                }
-            }
-            // Remover el listener después de la primera interacción
-            document.removeEventListener('click', enableMusicOnFirstInteraction);
-            document.removeEventListener('touchstart', enableMusicOnFirstInteraction);
-            document.removeEventListener('scroll', enableMusicOnFirstInteraction);
+        function initFirstInteractionListeners() {
+            const handleInteraction = () => {
+                handleFirstInteraction();
+            };
+            
+            document.addEventListener('click', handleInteraction, { once: true });
+            document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
         }
 
-        // Agregar listeners para primera interacción
-        document.addEventListener('click', enableMusicOnFirstInteraction, { once: true });
-        document.addEventListener('touchstart', enableMusicOnFirstInteraction, { once: true, passive: true });
-        document.addEventListener('scroll', enableMusicOnFirstInteraction, { once: true, passive: true });
-
-        // === INITIALIZATION ===
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
             createParticles();
-            loadProgress();
             createBalloons();
             checkScroll();
             updateCountdown();
             setInterval(updateCountdown, 1000);
-            setupMusicControl();
+            
             loadYouTubeAPI();
             
-            // Confetti en la última sección
+            setTimeout(() => {
+                setupMusicControl();
+                initFirstInteractionListeners();
+            }, 1000);
+            
             const lastSection = document.querySelector('.finale').parentElement;
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1743,7 +1729,6 @@
             }, { threshold: 0.5 });
             observer.observe(lastSection);
 
-            // Wishes iniciales
             wishesDatabase = [
                 '¡Que tu vida esté llena de amor y alegría, pequeña Renata! 💕',
                 'Bienvenida a este mundo hermoso, princesa ✨',
