@@ -350,6 +350,7 @@
             justify-content: center;
             margin-top: 30px;
         }
+        
 
         .btn {
             display: inline-block;
@@ -396,6 +397,11 @@
         .btn-whatsapp {
             background: #25D366;
             color: white;
+        }
+        .btn-calendar {
+            background: linear-gradient(135deg, #a5d6a7 0%, #c8e6c9 100%); /* Tono verde/menta suave */
+            color: #43a047; /* Color de texto más oscuro */
+            border: 1px solid #c8e6c9;
         }
 
         .balloon-game {
@@ -1074,6 +1080,9 @@
                     <a href="https://www.google.com/maps/place/Cl.+12c+%23+1E-7,+Soacha,+Cundinamarca/@4.5749593,-74.2196318,17z/data=!3m1!4b1!4m15!1m8!3m7!1s0x8e3f9fae288f1cd3:0x2d603a0f67a984ea!2sCl+55+%23+23A-10,+Soacha,+Cundinamarca!3b1!8m2!3d4.582459!4d-74.182497!16s%2Fg%2F11x7gvq62h!3m5!1s0x8e3f9fdf4da26fc9:0xee91e30b3f19ff6b!8m2!3d4.574954!4d-74.2170569!16s%2Fg%2F11x2m3rw07?entry=ttu" target="_blank" class="btn btn-gold">
                         📍 Llévame al evento
                     </a>
+                    <button onclick="addEventToCalendar()" class="btn btn-calendar">
+                        📅 Agendar Recordatorio
+                    </button>
                     <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
                         👋 Confirmar Asistencia
                     </a>
@@ -1105,10 +1114,10 @@
                 <div class="wishes-board" id="wishesBoard"></div>
             </div>
         </div>
-    
-        <div class="content-wrapper">
+            <div class="content-wrapper">
             <div class="finale">
-                <h2>💕 Gracias 💕</h2>
+                <h2><br>
+💕 Gracias 💕</h2>
                 <p>
                     Gracias por acompañarnos en esta nueva aventura.<br>
                     Cada sonrisa, cada abrazo, cada buen deseo<br>
@@ -1805,6 +1814,25 @@
             
             fetchWishes(); 
         });
+        // --- FUNCIÓN PARA AGENDAR EVENTO ---
+        function addEventToCalendar() {
+            const googleCalendarLink = 'https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower&dates=20251114T200000Z/20251114T220000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=xml';
+            
+            // Usamos el mismo enlace, cambiando el output a ics
+            const icsLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower&dates=20251114T200000Z/20251114T220000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=ics';
+            
+            // Mensaje de confirmación o selección
+            const userChoice = confirm("¿Deseas añadir el evento a tu Google Calendar?\n\n- Aceptar: Google Calendar\n- Cancelar: Descargar archivo para otros calendarios (Apple, Outlook, etc.)");
+            
+            if (userChoice) {
+                // Opción 1: Google Calendar (abre en nueva pestaña)
+                window.open(googleCalendarLink, '_blank');
+            } else {
+                // Opción 2: ICS/iCalendar (descarga o abre en app nativa)
+                window.open(icsLink, '_blank');
+            }
+        }
+        // --- FIN FUNCIÓN PARA AGENDAR EVENTO ---
     </script>
 </body>
 </html>
