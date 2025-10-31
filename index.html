@@ -27,7 +27,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- NUEVO: ESTILOS PARA PARTÍCULAS DE BRILLO --- */
+        /* --- ESTILOS PARA PARTÍCULAS DE BRILLO --- */
         .sparkle-particle {
             position: fixed;
             pointer-events: none;
@@ -146,7 +146,8 @@
 
         .countdown {
             position: fixed;
-            top: -100%; /* Inicia oculto */
+            top: 0; /* Fijo en la parte superior */
+            transform: translateY(-100%); /* Oculto por defecto usando transform */
             left: 0;
             right: 0;
             width: 100%;
@@ -156,19 +157,20 @@
             box-shadow: 0 8px 40px rgba(0,0,0,0.2), 0 0 20px rgba(212, 165, 165, 0.3);
             z-index: 100;
             backdrop-filter: blur(10px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Transición con transform para un movimiento más orgánico (GPU-acelerado) */
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease; 
             opacity: 0;
             border: none;
             border-bottom: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .countdown.visible {
-            top: 0;
+            transform: translateY(0); /* Muestra el banner */
             opacity: 1;
         }
 
         .countdown.hidden {
-            top: -100%;
+            transform: translateY(-100%);
             opacity: 0;
         }
 
@@ -1080,6 +1082,22 @@
 
     <section>
         <div class="content-wrapper">
+            <div class="finale" style="max-width: 600px; padding-bottom: 0;">
+                <h2>🎁 Regalo Sorpresa 🎁</h2>
+                <p>
+                    Si deseas hacer un regalo, ¡pensar en el bebé es el mejor detalle!<br>
+                    Hemos preparado una lista de sugerencias para ayudarte con la elección.
+                </p>
+                <div class="btn-container" style="margin-top: 20px; margin-bottom: 40px;">
+                    <a href="#" target="_blank" class="btn btn-gold">
+                        👶 Ver Lista de Regalos (Pronto)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="content-wrapper">
             <div class="balloon-game">
                 <h2>🎈 Rompe los Globos</h2>
                 <p>¡Haz clic en los globos para descubrir algo hermoso!</p>
@@ -1277,13 +1295,14 @@
 
         // --- FUNCIONES AUXILIARES ---
 
-        // --- NUEVO: Función createParticles para brillos discretos ---
+        // --- Función createParticles para brillos discretos ---
         function createParticles() {
             const colors = ['#fce4ec', '#ffffff', '#ffd700']; // Rosa, Blanco, Dorado
             const sizes = [4, 6, 8, 10]; // Tamaños de las partículas
 
             setInterval(() => {
-                const numParticles = Math.random() < 0.7 ? 1 : 2; // Más a menudo 1, a veces 2
+                // Reducida la frecuencia y cantidad a 1 para mejorar el rendimiento
+                const numParticles = 1; 
 
                 for (let i = 0; i < numParticles; i++) {
                     const particle = document.createElement('div');
@@ -1308,9 +1327,9 @@
                         particle.remove();
                     }, animationDuration * 1000);
                 }
-            }, 300); // Genera nuevas partículas cada 300ms
+            }, 750); // Genera nuevas partículas cada 750ms (menos frecuente)
         }
-        // --- FIN NUEVO ---
+        // --- FIN DE LA FUNCIÓN ---
 
 
         let isScrolling = false;
@@ -1787,7 +1806,7 @@
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
-            createParticles(); // <-- NUEVO: Llamada para crear las partículas
+            createParticles(); 
             createBalloons();
             checkScroll();
             updateCountdown();
