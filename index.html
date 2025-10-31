@@ -1702,16 +1702,7 @@
                 height: '0',
                 width: '0',
                 videoId: 'EZ06mv1-0N8', 
-                playerVars: {
-                    autoplay: 0,
-                    loop: 1,
-                    playlist: 'PL7UG8VftgmkIj7Ae6JPLeoxiS9hcdQUaQ', 
-                    controls: 0,
-                    disablekb: 1,
-                    modestbranding: 1,
-                    rel: 0,
-                    playsinline: 1
-                },
+
                 events: {
                     onReady: onPlayerReady,
                     onStateChange: onPlayerStateChange
@@ -1832,6 +1823,139 @@
                 window.open(icsLink, '_blank');
             }
         }
-        // --- FIN FUNCIÓN PARA AGENDAR EVENTO ---    </script>
+        // --- FIN FUNCIÓN PARA AGENDAR EVENTO ---    
+    // --- LÓGICA DE MÚSICA ---
+let ytPlayer = null;
+let musicPlaying = false;
+let playerReady = false;
+let firstInteraction = false;
+
+function loadYouTubeAPI() {
+    if (window.YT && window.YT.Player) {
+        initPlayer();
+        return;
+    }
+    
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(tag, firstScript);
+}
+
+window.onYouTubeIframeAPIReady = function() {
+    initPlayer();
+};
+
+function initPlayer() {
+    ytPlayer = new YT.Player('youtubeAudioContainer', {
+        height: '0',
+        width: '0',
+        videoId: 'EZ06mv1-0N8', // <--- ID del video que quieres reproducir
+        playerVars: {
+            autoplay: 0, // Inicia en 0 para ser controlado por el usuario
+            loop: 1,
+            // Eliminada la propiedad 'playlist' para enfocarnos en un solo video
+            controls: 0,
+            disablekb: 1,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1
+        },
+        events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    playerReady = true;
+    updateMusicButton();
+    setupMusicControl();
+    initFirstInteractionListeners();
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        musicPlaying = true;
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+        musicPlaying = false;
+    }
+    updateMusicButton();
+}
+
+// ESTA ES LA FUNCIÓN CLAVE PARA DISPOSITIVOS TÁCTILES/MÓVILES
+function handleFirstInteraction() {
+    if (!firstInteraction && playerReady && ytPlayer) {
+        firstInteraction = true;
+        try {
+            // Intenta reproducir el video con la primera interacción del usuario
+            ytPlayer.playVideo();
+            ytPlayer.setVolume(50); // Volumen al 50%
+            musicPlaying = true; // Aseguramos el estado después de intentar la reproducción
+            updateMusicButton();
+        } catch (error) {
+            console.error('Error al reproducir:', error);
+        }
+    }
+}
+
+function setupMusicControl() {
+    const musicBtn = document.getElementById('musicControl');
+    if (!musicBtn) return;
+    
+    // El botón se encargará de detener/reanudar la música después del primer toque
+    musicBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); 
+        toggleMusic();
+    });
+}
+
+function toggleMusic() {
+    if (!ytPlayer || !playerReady) {
+        return;
+    }
+    
+    try {
+        if (musicPlaying) {
+            ytPlayer.pauseVideo();
+        } else {
+            ytPlayer.playVideo();
+            ytPlayer.setVolume(50);
+        }
+    } catch (e) {
+        console.error('Error al controlar música:', e);
+    }
+}
+
+function updateMusicButton() {
+    const musicBtn = document.getElementById('musicControl');
+    if (!musicBtn) return;
+    
+    if (musicPlaying) {
+        musicBtn.textContent = '🔊';
+        musicBtn.title = 'Pausar música';
+        musicBtn.setAttribute('aria-label', 'Pausar música'); 
+        musicBtn.classList.add('playing');
+    } else {
+        musicBtn.textContent = '🔇';
+        musicBtn.title = 'Reproducir música';
+        musicBtn.setAttribute('aria-label', 'Reproducir música'); 
+        musicBtn.classList.remove('playing');
+    }
+}
+
+// Inicializa los escuchadores para la primera interacción
+function initFirstInteractionListeners() {
+    const handleInteraction = () => {
+        handleFirstInteraction();
+    };
+    
+    // Escucha tanto el clic (computadora) como el touchstart (táctil)
+    document.addEventListener('click', handleInteraction, { once: true });
+    document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
+}
+// --- FIN LÓGICA DE MÚSICA ---
+    </script>
 </body>
 </html>
