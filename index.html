@@ -198,16 +198,18 @@
 
         .countdown {
             position: fixed;
-            top: -100%;
+            top: -100%; /* Inicia oculto */
             left: 0;
             right: 0;
             width: 100%;
             text-align: center;
-            background: rgba(252, 228, 236, 0.98);
+            /* CAMBIO: Fondo más translúcido */
+            background: rgba(252, 228, 236, 0.85); 
             padding: 20px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.2), 0 0 20px rgba(212, 165, 165, 0.3);
             z-index: 100;
             backdrop-filter: blur(10px);
+            /* CAMBIO: Transición aplicada a todos los cambios */
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             border: none;
@@ -224,6 +226,31 @@
             opacity: 0;
         }
 
+        /* --- (NUEVO) ESTILOS PARA CONTADOR REDUCIDO --- */
+        .countdown.shrunk {
+            padding: 8px 20px; /* Reducir padding vertical */
+        }
+        
+        .countdown.shrunk h2 {
+            font-size: clamp(0.8em, 2vw, 1em); /* Fuente más pequeña */
+            margin-bottom: 8px;
+        }
+
+        .countdown.shrunk .time-box {
+            padding: 8px 6px; /* Cajas más pequeñas */
+            min-width: 55px;
+            border-radius: 10px;
+        }
+
+        .countdown.shrunk .time-box .number {
+            font-size: clamp(1em, 2.5vw, 1.5em); /* Números más pequeños */
+        }
+
+        .countdown.shrunk .time-box .label {
+            font-size: clamp(0.45em, 1vw, 0.6em); /* Etiquetas más pequeñas */
+        }
+        /* --- FIN DE ESTILOS NUEVOS --- */
+
         .countdown h2 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(0.85em, 2.5vw, 1.4em);
@@ -231,6 +258,8 @@
             margin-bottom: 14px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
             padding: 0 10px;
+            /* CAMBIO: Transición para el cambio de tamaño */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .countdown-timer {
@@ -249,7 +278,8 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
+            /* CAMBIO: Transición para el cambio de tamaño */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -283,6 +313,8 @@
             font-family: 'Playfair Display', serif;
             position: relative;
             z-index: 1;
+            /* CAMBIO: Transición para el cambio de tamaño */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .time-box .label {
@@ -292,6 +324,8 @@
             letter-spacing: 0.5px;
             position: relative;
             z-index: 1;
+            /* CAMBIO: Transición para el cambio de tamaño */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .content-wrapper {
@@ -985,6 +1019,19 @@
                 font-size: clamp(0.75em, 3vw, 1em);
                 margin-bottom: 10px;
             }
+            
+            /* --- (NUEVO) ESTILOS MÓVIL PARA CONTADOR REDUCIDO --- */
+            .countdown.shrunk h2 {
+                display: none; /* Ocultar el título en móvil cuando está reducido */
+            }
+            .countdown.shrunk {
+                padding: 5px 8px;
+            }
+            .countdown.shrunk .time-box {
+                min-width: 45px;
+                padding: 6px 4px;
+            }
+            /* --- FIN DE ESTILOS NUEVOS --- */
 
             .countdown-timer {
                 gap: 5px;
@@ -1008,7 +1055,8 @@
 <body>
     <div class="floating-particles" id="particles"></div>
 
-    <div class="music-control" id="musicControl" title="Reproducir música">🔇</div>
+    <!-- CAMBIO DE ACCESIBILIDAD: Añadido role="button" y aria-label dinámico (ver JS) -->
+    <div class="music-control" id="musicControl" title="Reproducir música" role="button" aria-label="Reproducir música">🔇</div>
     <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden; position:fixed; bottom:0; left:0;"></div>
 
     <div class="final-reveal" id="finalReveal">
@@ -1079,7 +1127,7 @@
                 
                 <div class="map-container">
                     <iframe class="map-embed" 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9849673947395!2d-74.21963181744384!3d4.574959400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9fdf4da26fc9%3A0xee91e30b3f19ff6b!2sCl.%2012c%20%23%201E-7%2C%20Soacha%2C%20Cundinamarca!5e0!3m2!1ses!2sco!4v1698765432100!5m2!1ses!2sco" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9849673947395!2d-74.21963181744384!3d4.574959400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9fdf4da26fc9%3A0xee91e30b3f19ff6b!2sCl.%2012c%2%201E-7%2C%20Soacha%2C%20Cundinamarca!5e0!3m2!1ses!2sco!4v1698765432100!5m2!1ses!2sco" 
                         allowfullscreen="" loading="lazy"></iframe>
                 </div>
                 
@@ -1346,39 +1394,34 @@
 
         let isScrolling = false;
         let countdownShown = false;
-        let lastScrollTop = 0;
         
         function checkScroll() {
             if (!isScrolling) {
                 window.requestAnimationFrame(() => {
                     const sections = document.querySelectorAll('section');
                     const countdownBanner = document.getElementById('countdownBanner');
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    // Mostrar countdown al salir del hero
-                    if (scrollTop > window.innerHeight * 0.5 && !countdownShown) {
-                        countdownBanner.classList.add('visible');
-                        countdownBanner.classList.remove('hidden');
-                        countdownShown = true;
+                    // CAMBIO: Nueva lógica para el banner fijo y reducido
+                    const heroSection = document.querySelector('.hero-section');
+                    const heroRect = heroSection.getBoundingClientRect();
+
+                    // Cuando la parte inferior del hero esté a 20px o menos de la parte superior
+                    // de la ventana, significa que hemos pasado el hero.
+                    if (heroRect.bottom < 20) {
+                        if (!countdownShown) {
+                            countdownBanner.classList.add('visible');
+                            countdownBanner.classList.add('shrunk'); // <-- AÑADIDO
+                            countdownShown = true;
+                        }
+                    } else {
+                        // Si volvemos a subir al hero
+                        if (countdownShown) {
+                            countdownBanner.classList.remove('visible');
+                            countdownBanner.classList.remove('shrunk'); // <-- AÑADIDO
+                            countdownShown = false;
+                        }
                     }
-                    
-                    // Ocultar countdown cuando se hace scroll hacia arriba
-                    if (scrollTop < lastScrollTop && scrollTop < window.innerHeight * 0.5) {
-                        countdownBanner.classList.remove('visible');
-                        countdownBanner.classList.add('hidden');
-                        countdownShown = false;
-                    }
-                    
-                    // Ocultar countdown cuando se hace mucho scroll hacia abajo
-                    if (scrollTop > window.innerHeight * 2) {
-                        countdownBanner.classList.remove('visible');
-                        countdownBanner.classList.add('hidden');
-                    } else if (countdownShown && scrollTop > window.innerHeight * 0.5 && scrollTop < window.innerHeight * 2) {
-                        countdownBanner.classList.add('visible');
-                        countdownBanner.classList.remove('hidden');
-                    }
-                    
-                    lastScrollTop = scrollTop;
+                    // Fin de la lógica del banner
                     
                     // Activar secciones visibles
                     sections.forEach(section => {
@@ -1565,7 +1608,7 @@
                     <button class="close-message" onclick="closeMessage(this)">Continuar</button>
                 `;
                 updateLetterProgress();
-                createConfetti();
+                createConfetti(); // Mantenemos el confeti individual aquí
                 
                 if (foundLetterIndices.size === babyNameLetters.length) {
                     setTimeout(showFinalReveal, 1500);
@@ -1615,6 +1658,10 @@
             const finalReveal = document.getElementById('finalReveal');
             finalReveal.classList.add('show');
             
+            // --- CAMBIO DE RENDIMIENTO (SOLICITUD 2) ---
+            // Se eliminaron los bucles de 'createConfetti' y 'createSparkleEffect' 
+            // que causaban lentitud al revelar el nombre.
+            /*
             for (let i = 0; i < 300; i++) {
                 setTimeout(() => createConfetti(), i * 10);
             }
@@ -1622,6 +1669,8 @@
             for (let i = 0; i < 100; i++) {
                 setTimeout(() => createSparkleEffect(), i * 30);
             }
+            */
+            // --- FIN DEL CAMBIO ---
         }
 
         function closeFinalReveal() {
@@ -1707,6 +1756,7 @@
             }
         }
 
+        // --- LÓGICA DE MÚSICA ---
         let ytPlayer = null;
         let musicPlaying = false;
         let playerReady = false;
@@ -1732,11 +1782,11 @@
             ytPlayer = new YT.Player('youtubeAudioContainer', {
                 height: '0',
                 width: '0',
-                videoId: '9GaBMZRHM3U',
+                videoId: '9GaBMZRHM3U', // ID del video de YouTube
                 playerVars: {
                     autoplay: 0,
                     loop: 1,
-                    playlist: '9GaBMZRHM3U',
+                    playlist: '9GaBMZRHM3U', // Necesario para que loop funcione en un solo video
                     controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
@@ -1753,6 +1803,9 @@
         function onPlayerReady(event) {
             playerReady = true;
             updateMusicButton();
+            // Los listeners de interacción se activan solo DESPUÉS de que el reproductor esté listo.
+            setupMusicControl();
+            initFirstInteractionListeners();
         }
 
         function onPlayerStateChange(event) {
@@ -1781,7 +1834,7 @@
             if (!musicBtn) return;
             
             musicBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
+                e.stopPropagation(); // Evita que el clic en el botón cuente como "primera interacción"
                 toggleMusic();
             });
         }
@@ -1810,10 +1863,12 @@
             if (musicPlaying) {
                 musicBtn.textContent = '🔊';
                 musicBtn.title = 'Pausar música';
+                musicBtn.setAttribute('aria-label', 'Pausar música'); // <-- CAMBIO ACCESIBILIDAD
                 musicBtn.classList.add('playing');
             } else {
                 musicBtn.textContent = '🔇';
                 musicBtn.title = 'Reproducir música';
+                musicBtn.setAttribute('aria-label', 'Reproducir música'); // <-- CAMBIO ACCESIBILIDAD
                 musicBtn.classList.remove('playing');
             }
         }
@@ -1823,9 +1878,12 @@
                 handleFirstInteraction();
             };
             
+            // Estos listeners se agregarán ahora solo DESPUÉS de onPlayerReady
             document.addEventListener('click', handleInteraction, { once: true });
             document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
         }
+        // --- FIN LÓGICA DE MÚSICA ---
+
 
         window.addEventListener('scroll', checkScroll);
         
@@ -1836,16 +1894,11 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
             
+            // Inicia la carga de la API de YouTube
             loadYouTubeAPI();
             
-            setTimeout(() => {
-                setupMusicControl();
-                initFirstInteractionListeners();
-            }, 1000);
-            
-// CÓDIGO CORREGIDO (Reemplaza el bloque anterior)
-const lastSection = document.querySelector('.finale').parentElement;
-let confettiStarted = false; // Nueva bandera para controlar la ejecución única
+            const lastSection = document.querySelector('.finale').parentElement;
+            let confettiStarted = false; // Nueva bandera para controlar la ejecución única
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1872,3 +1925,4 @@ let confettiStarted = false; // Nueva bandera para controlar la ejecución únic
     </script>
 </body>
 </html>
+
