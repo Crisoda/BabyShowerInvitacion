@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Baby Shower - ¡Te invitamos! ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍼</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet"><style>
         html {
             scroll-behavior: smooth;
         }
@@ -1016,7 +1015,7 @@
 
     <section class="hero-section">
         <div class="hero-content">
-            <h1>✨Te invitamos al Baby Shower!✨</h1>
+            <h1>✨¡Te invitamos al Baby Shower!✨</h1>
             <p class="subtitle">
                 Una historia que apenas comienza...<br>
                 Una pequeña luz está por llegar,<br>
@@ -1055,7 +1054,7 @@
                 <h2>📋 Detalles del Evento</h2>
                 <div class="detail-item">
                     <span>📅</span>
-                    <div><strong>Fecha:</strong> 16 de noviembre de 2025</div>
+                    <div><strong>Fecha:</strong> Domingo, 16 de noviembre de 2025</div>
                 </div>
                 <div class="detail-item">
                     <span>🕒</span>
@@ -1067,7 +1066,7 @@
                 </div>
                 <div class="detail-item">
                     <span>👩‍🍼</span>
-                    <div><strong>Organiza:</strong> La abuela, Mar Barón y tía Catalina.</div>
+                    <div><strong>Organiza:</strong> La abuela, Mar y la tía Catalina.</div>
                 </div>
                 
                 <div class="map-container">
@@ -1130,8 +1129,8 @@
                 <h2>🎁 Regalo Sorpresa 🎁</h2>
                 <p>
                     Para hacer un regalo, ¡pensar en la bebé es el mejor detalle!
-                </p>
                 <br>
+                </p>
             </div>
       
     <footer class="footer">
@@ -1816,23 +1815,21 @@
         });
         // --- FUNCIÓN PARA AGENDAR EVENTO ---
         function addEventToCalendar() {
-            const googleCalendarLink = 'https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower&dates=20251114T200000Z/20251114T220000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=xml';
+            // Fecha/Hora UTC-5 (Colombia): 3:00 PM (20:00Z) a 6:00 PM (23:00Z) del 16/11/2025
+            const googleCalendarLink = 'https://www.google.com/calendar/render?action=TEMPLATE&text=🍼Baby+Shower+bebé+de+Vane+y+Cris+&dates=20251116T200000Z/20251116T230000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=xml';
             
-            // Usamos el mismo enlace, cambiando el output a ics
-            const icsLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower&dates=20251114T200000Z/20251114T220000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=ics';
+            // Usamos el mismo enlace para ICS
+            const icsLink = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=🍼Baby+Shower+bebé+de+Vane+y+Cris+&dates=20251116T200000Z/20251116T230000Z&details=Te+invitamos+a+celebrar+la+llegada+de+nuestra+pequeña+estrella.+¡Te+esperamos!&location=Calle+12+%23+00-10+Este%2C+Soacha%2C+Cundinamarca&sf=true&output=ics';
             
             // Mensaje de confirmación o selección
             const userChoice = confirm("¿Deseas añadir el evento a tu Google Calendar?\n\n- Aceptar: Google Calendar\n- Cancelar: Descargar archivo para otros calendarios (Apple, Outlook, etc.)");
             
             if (userChoice) {
-                // Opción 1: Google Calendar (abre en nueva pestaña)
                 window.open(googleCalendarLink, '_blank');
             } else {
-                // Opción 2: ICS/iCalendar (descarga o abre en app nativa)
                 window.open(icsLink, '_blank');
             }
         }
-        // --- FIN FUNCIÓN PARA AGENDAR EVENTO ---
-    </script>
+        // --- FIN FUNCIÓN PARA AGENDAR EVENTO ---    </script>
 </body>
 </html>
