@@ -195,8 +195,9 @@
         .countdown {
             position: fixed;
             top: -100%;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
+            width: 100%;
             text-align: center;
             background: rgba(252, 228, 236, 0.98);
             padding: 20px;
@@ -205,11 +206,8 @@
             backdrop-filter: blur(10px);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            border-radius: 0 0 30px 30px;
-            max-width: 90%;
-            width: auto;
-            min-width: min(600px, 90vw);
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .countdown.visible {
@@ -217,10 +215,9 @@
             opacity: 1;
         }
 
-        .countdown.compact {
-            padding: 12px 15px;
-            background: rgba(252, 228, 236, 0.95);
-            border-radius: 0 0 25px 25px;
+        .countdown.hidden {
+            top: -100%;
+            opacity: 0;
         }
 
         .countdown h2 {
@@ -229,12 +226,6 @@
             color: #d4a5a5;
             margin-bottom: 14px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .countdown.compact h2 {
-            font-size: clamp(0.7em, 1.4vw, 0.9em);
-            margin-bottom: 7px;
         }
 
         .countdown-timer {
@@ -256,12 +247,6 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-        }
-
-        .countdown.compact .time-box {
-            padding: 7px;
-            min-width: 50px;
-            border-radius: 10px;
         }
 
         .time-box::before {
@@ -293,11 +278,6 @@
             font-family: 'Playfair Display', serif;
             position: relative;
             z-index: 1;
-            transition: all 0.3s ease;
-        }
-
-        .countdown.compact .time-box .number {
-            font-size: clamp(1em, 1.75vw, 1.3em);
         }
 
         .time-box .label {
@@ -307,12 +287,6 @@
             letter-spacing: 0.7px;
             position: relative;
             z-index: 1;
-            transition: all 0.3s ease;
-        }
-
-        .countdown.compact .time-box .label {
-            font-size: clamp(0.45em, 0.84vw, 0.55em);
-            letter-spacing: 0.35px;
         }
 
         .content-wrapper {
@@ -956,21 +930,12 @@
             }
 
             .countdown {
-                min-width: 90vw;
-            }
-
-            .countdown-timer {
-                gap: 7px;
+                padding: 15px 10px;
             }
 
             .time-box {
                 min-width: 55px;
                 padding: 10px 7px;
-            }
-
-            .countdown.compact .time-box {
-                min-width: 45px;
-                padding: 5px;
             }
 
             .final-reveal-content {
@@ -1007,11 +972,29 @@
             }
 
             .countdown {
-                padding: 15px 10px;
+                padding: 12px 8px;
             }
 
-            .countdown.compact {
-                padding: 10px;
+            .countdown h2 {
+                font-size: clamp(0.75em, 3vw, 1em);
+                margin-bottom: 10px;
+            }
+
+            .countdown-timer {
+                gap: 5px;
+            }
+
+            .time-box {
+                min-width: 50px;
+                padding: 8px 5px;
+            }
+
+            .time-box .number {
+                font-size: clamp(1.2em, 4vw, 1.5em);
+            }
+
+            .time-box .label {
+                font-size: clamp(0.5em, 2vw, 0.6em);
             }
         }
     </style>
@@ -1193,6 +1176,7 @@
 
         let isScrolling = false;
         let countdownShown = false;
+        let lastScrollTop = 0;
         
         function checkScroll() {
             if (!isScrolling) {
@@ -1201,17 +1185,32 @@
                     const countdownBanner = document.getElementById('countdownBanner');
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
+                    // Mostrar countdown al salir del hero
                     if (scrollTop > window.innerHeight * 0.5 && !countdownShown) {
                         countdownBanner.classList.add('visible');
+                        countdownBanner.classList.remove('hidden');
                         countdownShown = true;
                     }
                     
-                    if (scrollTop > window.innerHeight * 1.2) {
-                        countdownBanner.classList.add('compact');
-                    } else if (countdownShown) {
-                        countdownBanner.classList.remove('compact');
+                    // Ocultar countdown cuando se hace scroll hacia arriba
+                    if (scrollTop < lastScrollTop && scrollTop < window.innerHeight * 0.5) {
+                        countdownBanner.classList.remove('visible');
+                        countdownBanner.classList.add('hidden');
+                        countdownShown = false;
                     }
                     
+                    // Ocultar countdown cuando se hace mucho scroll hacia abajo
+                    if (scrollTop > window.innerHeight * 2) {
+                        countdownBanner.classList.remove('visible');
+                        countdownBanner.classList.add('hidden');
+                    } else if (countdownShown && scrollTop > window.innerHeight * 0.5 && scrollTop < window.innerHeight * 2) {
+                        countdownBanner.classList.add('visible');
+                        countdownBanner.classList.remove('hidden');
+                    }
+                    
+                    lastScrollTop = scrollTop;
+                    
+                    // Activar secciones visibles
                     sections.forEach(section => {
                         const rect = section.getBoundingClientRect();
                         if (rect.top < window.innerHeight * 0.75) {
