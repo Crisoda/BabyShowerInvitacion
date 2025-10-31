@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Baby Shower - ¡Te invitamos!✨</title>
+    <title>Baby Shower - Te invitamos! ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         html {
@@ -22,8 +22,10 @@
             color: #5d4037;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
         }
 
+        /* FLOATING PARTICLES Y BRILLOS */
         .floating-particles {
             position: fixed;
             top: 0;
@@ -61,10 +63,11 @@
 
         .sparkle {
             position: absolute;
-            width: 3px;
-            height: 3px;
+            width: 4px;
+            height: 4px;
             background: radial-gradient(circle, #ffd700 0%, transparent 70%);
             border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
             animation: sparkleShine 3s infinite ease-in-out;
             opacity: 0;
         }
@@ -76,7 +79,27 @@
             }
             50% { 
                 opacity: 1; 
-                transform: scale(2) rotate(180deg);
+                transform: scale(2.5) rotate(180deg);
+            }
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+            animation: glowFloat 8s infinite ease-in-out;
+            opacity: 0.4;
+            filter: blur(20px);
+        }
+
+        @keyframes glowFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(50px, -80px) scale(1.5);
+                opacity: 0.6;
             }
         }
 
@@ -86,7 +109,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             position: relative;
             z-index: 2;
             opacity: 0;
@@ -99,50 +122,73 @@
             transform: translateY(0);
         }
 
+        /* HERO SECTION MEJORADO - SIN TARJETA */
         .hero-section {
             position: relative;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 1 !important;
             transform: translateY(0) !important;
-        }
-
-        .hero-title {
+            padding: 40px 20px;
             text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 1s ease;
-            z-index: 10;
         }
 
-        .hero-title.hide {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-            pointer-events: none;
+        .hero-content {
+            max-width: 800px;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            border: none;
+            animation: heroAppear 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .hero-title h1 {
+        @keyframes heroAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4em;
+            font-size: clamp(2.5em, 5.5vw, 4em);
             color: #d4a5a5;
             margin-bottom: 30px;
-            text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 0 40px rgba(212, 165, 165, 1), 0 0 60px rgba(244, 143, 177, 0.8), 0 5px 15px rgba(0,0,0,0.3);
             animation: titleGlow 3s ease-in-out infinite;
         }
 
         @keyframes titleGlow {
-            0%, 100% { text-shadow: 0 0 30px rgba(212, 165, 165, 0.8), 2px 2px 4px rgba(0,0,0,0.1); }
-            50% { text-shadow: 0 0 50px rgba(212, 165, 165, 1), 2px 2px 4px rgba(0,0,0,0.1); }
+            0%, 100% { text-shadow: 0 0 40px rgba(212, 165, 165, 1), 0 0 60px rgba(244, 143, 177, 0.8), 0 5px 15px rgba(0,0,0,0.3); }
+            50% { text-shadow: 0 0 60px rgba(212, 165, 165, 1), 0 0 90px rgba(244, 143, 177, 1), 0 5px 20px rgba(0,0,0,0.4); }
         }
 
-        .hero-title p {
-            font-size: 1.5em;
-            color: #f48fb1;
+        .hero-content .subtitle {
+            font-size: clamp(1.4em, 3.2vw, 2em);
+            color: #fff;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3), 0 0 30px rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+
+        .hero-content .scroll-hint {
+            font-size: clamp(1.3em, 2.8vw, 1.7em);
+            color: #fff;
             animation: bounce 2s infinite;
+            margin-top: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3), 0 0 20px rgba(248, 187, 208, 0.8);
+            font-weight: 600;
         }
 
         @keyframes bounce {
@@ -150,53 +196,62 @@
             50% { transform: translateY(-15px); }
         }
 
+        /* COUNTDOWN MEJORADO - 30% MÁS PEQUEÑO */
         .countdown {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
             text-align: center;
-            max-width: 100%;
-            width: 100%;
-            position: sticky;
-            top: 0;
             background: rgba(252, 228, 236, 0.98);
-            padding: 30px 20px;
+            padding: 21px 14px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.15);
             z-index: 100;
             backdrop-filter: blur(10px);
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top center;
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        .countdown.visible {
+            top: 0;
+            opacity: 1;
         }
 
         .countdown.compact {
-            padding: 8px 15px;
-            transform: scale(0.6);
-            transform-origin: top center;
+            padding: 8px 10px;
+            background: rgba(252, 228, 236, 0.95);
         }
 
         .countdown h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2em;
+            font-size: clamp(0.9em, 2.1vw, 1.4em);
             color: #d4a5a5;
-            margin-bottom: 25px;
+            margin-bottom: 14px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
             transition: all 0.3s ease;
         }
 
         .countdown.compact h2 {
-            font-size: 1em;
-            margin-bottom: 8px;
+            font-size: clamp(0.63em, 1.4vw, 0.84em);
+            margin-bottom: 7px;
         }
 
         .countdown-timer {
             display: flex;
-            gap: 25px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 100%;
         }
 
         .time-box {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 25px 20px;
-            min-width: 100px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-radius: 14px;
+            padding: 14px 10px;
+            min-width: 63px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
@@ -205,8 +260,9 @@
         }
 
         .countdown.compact .time-box {
-            padding: 8px 6px;
-            min-width: 50px;
+            padding: 5.6px 7px;
+            min-width: 42px;
+            border-radius: 8px;
         }
 
         .time-box::before {
@@ -226,12 +282,12 @@
         }
 
         .time-box:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
         .time-box .number {
-            font-size: 3em;
+            font-size: clamp(1.4em, 2.8vw, 2.1em);
             font-weight: bold;
             color: #f48fb1;
             display: block;
@@ -242,31 +298,41 @@
         }
 
         .countdown.compact .time-box .number {
-            font-size: 1.3em;
+            font-size: clamp(0.84em, 1.75vw, 1.05em);
         }
 
         .time-box .label {
-            font-size: 0.9em;
+            font-size: clamp(0.49em, 1.05vw, 0.63em);
             color: #6d4c41;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 0.7px;
             position: relative;
             z-index: 1;
             transition: all 0.3s ease;
         }
 
         .countdown.compact .time-box .label {
-            font-size: 0.6em;
-            letter-spacing: 0.5px;
+            font-size: clamp(0.42em, 0.84vw, 0.52em);
+            letter-spacing: 0.35px;
         }
 
+        /* CONTENEDOR DE CONTENIDO */
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* EVENT DETAILS CARD */
         .event-details {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
-            padding: 50px;
+            padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 40px rgba(212, 165, 165, 0.2);
+            width: 100%;
             max-width: 700px;
-            width: 90%;
+            margin: 0 auto;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease;
@@ -279,18 +345,18 @@
 
         .event-details h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
+            font-size: clamp(1.8em, 4vw, 2.5em);
             color: #d4a5a5;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             text-shadow: 0 0 10px rgba(212, 165, 165, 0.3);
         }
 
         .detail-item {
             display: flex;
-            align-items: center;
-            margin: 25px 0;
-            font-size: 1.2em;
+            align-items: flex-start;
+            margin: 20px 0;
+            font-size: clamp(1em, 2vw, 1.2em);
             color: #6d4c41;
             padding: 15px;
             border-radius: 15px;
@@ -304,19 +370,28 @@
 
         .detail-item span {
             margin-right: 15px;
-            font-size: 1.8em;
+            font-size: 1.5em;
+            flex-shrink: 0;
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
         }
 
-        .event-details .map-embed {
+        /* MAPA CORREGIDO */
+        .map-container {
             width: 100%;
             height: 300px;
             border-radius: 20px;
-            border: none;
-            margin-top: 30px;
+            overflow: hidden;
+            margin-top: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
+        .map-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* BOTONES */
         .btn-container {
             display: flex;
             gap: 15px;
@@ -327,15 +402,16 @@
 
         .btn {
             display: inline-block;
-            padding: 15px 35px;
+            padding: 15px 30px;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1em;
+            font-size: clamp(0.95em, 2vw, 1.1em);
             font-weight: 600;
             transition: all 0.4s ease;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
         .btn::before {
@@ -371,22 +447,24 @@
             color: white;
         }
 
+        /* BALLOON GAME */
         .balloon-game {
             text-align: center;
             width: 100%;
             max-width: 1000px;
+            margin: 0 auto;
         }
 
         .balloon-game h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
+            font-size: clamp(1.8em, 4vw, 2.5em);
             color: #d4a5a5;
             margin-bottom: 20px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
         }
 
         .balloon-game p {
-            font-size: 1.3em;
+            font-size: clamp(1.1em, 2.5vw, 1.3em);
             color: #6d4c41;
             margin-bottom: 40px;
         }
@@ -394,7 +472,7 @@
         .balloon-container {
             position: relative;
             width: 100%;
-            height: 550px;
+            height: 450px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -418,24 +496,41 @@
         }
 
         .balloon svg {
-            width: 90px;
-            height: 110px;
+            width: 80px;
+            height: 100px;
         }
 
+        /* MENSAJE DE GLOBO MEJORADO - CENTRADO */
         .balloon-message {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 50px;
+            padding: 40px;
             border-radius: 30px;
             box-shadow: 0 20px 80px rgba(0,0,0,0.4);
-            z-index: 1000;
+            z-index: 10001;
             text-align: center;
-            max-width: 450px;
+            max-width: 90%;
+            width: 450px;
             animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border: 3px solid rgba(212, 165, 165, 0.3);
+        }
+
+        /* OVERLAY PARA MENSAJES */
+        .message-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         @keyframes popIn {
@@ -451,16 +546,16 @@
 
         .balloon-message h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 2em;
+            font-size: clamp(1.5em, 3vw, 2em);
             color: #d4a5a5;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .letter-reveal {
-            font-size: 4em;
+            font-size: clamp(3em, 6vw, 4em);
             color: #f48fb1;
             font-weight: bold;
-            margin: 25px 0;
+            margin: 20px 0;
             font-family: 'Playfair Display', serif;
             text-shadow: 0 0 20px rgba(244, 143, 177, 0.5);
             animation: letterPulse 1s ease-in-out infinite;
@@ -472,14 +567,14 @@
         }
 
         .close-message {
-            margin-top: 25px;
-            padding: 12px 35px;
+            margin-top: 20px;
+            padding: 12px 30px;
             background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: clamp(1em, 2vw, 1.1em);
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(244, 143, 177, 0.3);
         }
@@ -490,17 +585,18 @@
         }
 
         #letterProgress {
-            margin-top: 40px;
-            font-size: 1.4em;
+            margin-top: 30px;
+            font-size: clamp(1.1em, 2.5vw, 1.4em);
             color: #d4a5a5;
             font-weight: 600;
-            padding: 15px 30px;
+            padding: 15px 25px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             display: inline-block;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
+        /* FINAL REVEAL MEJORADO - TEXTO MÁS PEQUEÑO */
         .final-reveal {
             position: fixed;
             top: 0;
@@ -514,6 +610,7 @@
             justify-content: center;
             animation: fadeIn 1s ease;
             backdrop-filter: blur(20px);
+            padding: 20px;
         }
 
         .final-reveal.show {
@@ -522,49 +619,52 @@
 
         .final-reveal-content {
             text-align: center;
-            padding: 60px 40px;
+            padding: 30px 25px;
             background: white;
             border-radius: 40px;
             box-shadow: 0 30px 100px rgba(0,0,0,0.4);
-            max-width: 700px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            width: 500px;
             animation: popIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border: 4px solid rgba(212, 165, 165, 0.5);
         }
 
         .final-reveal-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5em;
+            font-size: clamp(1.4em, 3vw, 2em);
             color: #d4a5a5;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             text-shadow: 0 0 30px rgba(212, 165, 165, 0.8);
         }
 
         .final-reveal-content .name {
-            font-size: 6em;
+            font-size: clamp(2.5em, 5.5vw, 3.8em);
             font-weight: bold;
             color: #f48fb1;
             font-family: 'Playfair Display', serif;
             text-shadow: 0 0 40px rgba(244, 143, 177, 0.8);
             animation: letterPulse 2s ease-in-out infinite;
-            margin: 40px 0;
+            margin: 20px 0;
         }
 
         .final-reveal-content p {
-            font-size: 1.5em;
+            font-size: clamp(0.9em, 1.8vw, 1.1em);
             color: #6d4c41;
-            line-height: 1.8;
-            margin: 30px 0;
+            line-height: 1.6;
+            margin: 12px 0;
         }
 
         .final-reveal-content button {
-            margin-top: 40px;
-            padding: 20px 50px;
+            margin-top: 20px;
+            padding: 12px 30px;
             background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
             color: white;
             border: none;
             border-radius: 40px;
             cursor: pointer;
-            font-size: 1.3em;
+            font-size: clamp(0.95em, 1.9vw, 1.1em);
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(244, 143, 177, 0.4);
             font-weight: 600;
@@ -580,25 +680,27 @@
             to { opacity: 1; }
         }
 
+        /* WISHES SECTION */
         .wishes-section {
             text-align: center;
             max-width: 1000px;
-            width: 90%;
+            width: 100%;
+            margin: 0 auto;
         }
 
         .wishes-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
+            font-size: clamp(1.8em, 4vw, 2.5em);
             color: #d4a5a5;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(212, 165, 165, 0.3);
         }
 
         .wish-form {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 50px;
+            padding: 35px;
+            margin-bottom: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.5);
@@ -610,10 +712,10 @@
             border: 2px solid #f8bbd0;
             border-radius: 20px;
             font-family: 'Quicksand', sans-serif;
-            font-size: 1.1em;
+            font-size: clamp(1em, 2vw, 1.1em);
             resize: vertical;
             min-height: 120px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             transition: all 0.3s ease;
         }
 
@@ -626,10 +728,10 @@
         .wish-form button {
             background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
             color: white;
-            padding: 15px 45px;
+            padding: 15px 40px;
             border: none;
             border-radius: 30px;
-            font-size: 1.2em;
+            font-size: clamp(1em, 2vw, 1.2em);
             cursor: pointer;
             transition: all 0.4s ease;
             box-shadow: 0 8px 25px rgba(244, 143, 177, 0.3);
@@ -645,7 +747,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .wish-card {
@@ -687,7 +789,7 @@
         }
 
         .wish-card p {
-            font-size: 1.05em;
+            font-size: clamp(1em, 2vw, 1.05em);
             color: #6d4c41;
             line-height: 1.7;
             font-style: italic;
@@ -711,35 +813,54 @@
             }
         }
 
+        /* FINALE CON FOOTER */
         .finale {
             text-align: center;
             max-width: 750px;
+            margin: 0 auto;
+            padding-bottom: 80px;
         }
 
         .finale h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3em;
+            font-size: clamp(2em, 4vw, 3em);
             color: #d4a5a5;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             text-shadow: 0 0 20px rgba(212, 165, 165, 0.5);
             animation: titleGlow 3s ease-in-out infinite;
         }
 
         .finale p {
-            font-size: 1.4em;
+            font-size: clamp(1.1em, 2.5vw, 1.4em);
             line-height: 2;
             color: #6d4c41;
             font-style: italic;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .finale .signature {
-            margin-top: 50px;
-            font-size: 1.3em;
+        /* FOOTER */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(252, 228, 236, 0.95);
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            z-index: 90;
+        }
+
+        .footer p {
+            font-size: clamp(0.95em, 2vw, 1.15em);
             color: #f48fb1;
             font-weight: 600;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
         }
 
+        /* CONFETTI */
         .confetti {
             position: fixed;
             width: 12px;
@@ -757,19 +878,20 @@
             }
         }
 
+        /* MUSIC CONTROL */
         .music-control {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: linear-gradient(135deg, #f48fb1 0%, #f8bbd0 100%);
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.8em;
+            font-size: 1.6em;
             box-shadow: 0 8px 30px rgba(244, 143, 177, 0.4);
             z-index: 1000;
             transition: all 0.3s ease;
@@ -790,40 +912,120 @@
             50% { transform: scale(1.1); }
         }
 
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero-title h1 { font-size: 2.5em; }
-            .hero-title p { font-size: 1.2em; }
-            .countdown h2 { font-size: 1.5em; }
-            .countdown.compact h2 { font-size: 0.9em; }
-            .event-details { padding: 30px 25px; }
-            .event-details h2 { font-size: 2em; }
-            .detail-item { font-size: 1em; }
-            .time-box { padding: 20px 15px; min-width: 80px; }
-            .time-box .number { font-size: 2.5em; }
-            .countdown.compact .time-box { padding: 6px 5px; min-width: 45px; }
-            .countdown.compact .time-box .number { font-size: 1.1em; }
-            .countdown.compact .time-box .label { font-size: 0.55em; }
-            .balloon svg { width: 70px; height: 85px; }
-            .balloon-message { padding: 35px 25px; max-width: 90%; }
-            .letter-reveal { font-size: 3em; }
-            .final-reveal-content { padding: 40px 30px; max-width: 90%; }
-            .final-reveal-content h2 { font-size: 2.5em; }
-            .final-reveal-content .name { font-size: 4em; }
-            .final-reveal-content p { font-size: 1.2em; }
-            h2 { font-size: 2em !important; }
-            .finale h2 { font-size: 2.2em; }
-            #letterProgress { font-size: 1.1em; padding: 12px 20px; }
+            section {
+                padding: 40px 15px;
+            }
+
+            .hero-content {
+                padding: 0;
+            }
+
+            .event-details {
+                padding: 30px 20px;
+            }
+
+            .balloon-container {
+                height: 350px;
+            }
+
+            .balloon svg {
+                width: 65px;
+                height: 80px;
+            }
+
+            .wishes-board {
+                grid-template-columns: 1fr;
+            }
+
+            .music-control {
+                width: 55px;
+                height: 55px;
+                font-size: 1.4em;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .countdown-timer {
+                gap: 7px;
+            }
+
+            .time-box {
+                min-width: 49px;
+                padding: 10px 7px;
+            }
+
+            .countdown.compact .time-box {
+                min-width: 38px;
+                padding: 4px 5px;
+            }
+
+            .final-reveal-content {
+                padding: 25px 20px;
+                width: 95%;
+            }
+
+            .footer {
+                padding: 12px 15px;
+            }
+
+            .footer p {
+                font-size: clamp(0.85em, 3vw, 1em);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .balloon-message {
+                padding: 30px 20px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .finale {
+                padding-bottom: 70px;
+            }
         }
     </style>
 </head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="music-control" id="musicControl" title="Reproducir música">🔇</div>
+    <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden; position:fixed; bottom:0; left:0;"></div>
+
+    <div class="final-reveal" id="finalReveal">
+        <div class="final-reveal-content">
+            <h2>🎊 ¡Descubriste el nombre! 🎊</h2>
+            <div class="name">RENATA</div>
+            <p>💫 ¡Bienvenida a nuestras vidas, Renata! 💫</p>
+            <p>Una nueva estrella que iluminará cada día con su luz, amor y alegría.</p>
+            <p style="margin-top: 15px;">Estamos emocionados de compartir este momento tan especial contigo.</p>
+            <button onclick="closeFinalReveal()">✨ Continuar Celebrando ✨</button>
+        </div>
+    </div>
+
     <section class="hero-section">
-        <div class="hero-title" id="heroTitle">
-            <h1>✨ ¡Te invitamos al Baby Shower! ✨</h1>
-            <p>Desliza hacia abajo 🌸</p>
+        <div class="hero-content">
+            <h1>✨ Te invitamos al Baby Shower! ✨</h1>
+            <p class="subtitle">
+                Una historia que apenas comienza...<br>
+                Una pequeña luz está por llegar,<br>
+                y queremos celebrarlo contigo.
+            </p>
+            <p class="scroll-hint">Desliza hacia abajo 🌸</p>
         </div>
     </section>
-    <h2>⏰ Faltan pocos días para celebrar esta nueva vida ✨</h2>
-        <div class="countdown" id="countdownBanner">
+
+    <div class="countdown" id="countdownBanner">
+        <h2>⏰ Faltan pocos días para celebrar esta nueva vida ✨</h2>
         <div class="countdown-timer">
             <div class="time-box">
                 <span class="number" id="days">00</span>
@@ -843,103 +1045,97 @@
             </div>
         </div>
     </div>
-    
-    
-<body>
-    <div class="floating-particles" id="particles"></div>
-
-    <div class="music-control" id="musicControl">🔇</div>
-    <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden;"></div>
-
-    <div class="final-reveal" id="finalReveal">
-        <div class="final-reveal-content">
-            <h2>🎊 ¡Descubriste el nombre! 🎊</h2>
-            <div class="name">RENATA</div>
-            <p>💫 ¡Bienvenida a nuestras vidas, Renata! 💫</p>
-            <p>Una nueva estrella que iluminará cada día con su luz, amor y alegría.</p>
-            <p style="font-size: 1.1em; margin-top: 25px;">Estamos emocionados de compartir este momento tan especial contigo.</p>
-            <button onclick="closeFinalReveal()">✨ Continuar Celebrando ✨</button>
-        </div>
-    </div>
-
-
 
     <section class="visible">
-        <div class="event-details">
-            <h2>📋 Detalles del Evento</h2>
-            <div class="detail-item">
-                <span>📅</span>
-                <div><strong>Fecha:</strong> 14 de noviembre de 2025</div>
-            </div>
-            <div class="detail-item">
-                <span>🕒</span>
-                <div><strong>Hora:</strong> 3:00 p.m.</div>
-            </div>
-            <div class="detail-item">
-                <span>📍</span>
-                <div><strong>Lugar:</strong> Calle 12 # 00-10 Este, Soacha</div>
-            </div>
-            <div class="detail-item">
-                <span>👩‍🍼</span>
-                <div><strong>Organiza:</strong> La abuela, Mar Barón</div>
-            </div>
-            
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.106095131587!2d-74.22167033133985!3d4.574959332595347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9fdf4da26fc9%3A0xee91e30b3f19ff6b!2sCl.%2012c%20%23%201E-7%2C%20Soacha%2C%20Cundinamarca!5e0!3m2!1ses-419!2sco!4v1761864281846!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            
-            <div class="btn-container">
-                <a href="https://www.google.com/maps/place/Cl.+12c+%23+1E-7,+Soacha,+Cundinamarca/@4.5749593,-74.2216703,17z/data=!3m1!4b1!4m15!1m8!3m7!1s0x8e3f9fae288f1cd3:0x2d603a0f67a984ea!2sCl+55+%23+23A-10,+Soacha,+Cundinamarca!3b1!8m2!3d4.582459!4d-74.182497!16s%2Fg%2F11x7gvq62h!3m5!1s0x8e3f9fdf4da26fc9:0xee91e30b3f19ff6b!8m2!3d4.574954!4d-74.2170569!16s%2Fg%2F11x2m3rw07?entry=ttu&g_ep=EgoyMDI1MTAyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-gold">
-                    📍 Llévame al evento
-                </a>
-                <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
-                    💬 Confirmar Asistencia
-                </a>
+        <div class="content-wrapper">
+            <div class="event-details">
+                <h2>📋 Detalles del Evento</h2>
+                <div class="detail-item">
+                    <span>📅</span>
+                    <div><strong>Fecha:</strong> 14 de noviembre de 2025</div>
+                </div>
+                <div class="detail-item">
+                    <span>🕒</span>
+                    <div><strong>Hora:</strong> 3:00 p.m.</div>
+                </div>
+                <div class="detail-item">
+                    <span>📍</span>
+                    <div><strong>Lugar:</strong> Calle 12c # 1E-7, Soacha, Cundinamarca</div>
+                </div>
+                <div class="detail-item">
+                    <span>👩‍🍼</span>
+                    <div><strong>Organiza:</strong> La abuela, Mar Barón</div>
+                </div>
+                
+                <div class="map-container">
+                    <iframe class="map-embed" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9849673947395!2d-74.21963181744384!3d4.574959400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9fdf4da26fc9%3A0xee91e30b3f19ff6b!2sCl.%2012c%20%23%201E-7%2C%20Soacha%2C%20Cundinamarca!5e0!3m2!1ses!2sco!4v1698765432100!5m2!1ses!2sco" 
+                        allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                
+                <div class="btn-container">
+                    <a href="https://www.google.com/maps/place/Cl.+12c+%23+1E-7,+Soacha,+Cundinamarca/@4.5749593,-74.2196318,17z/data=!3m1!4b1!4m15!1m8!3m7!1s0x8e3f9fae288f1cd3:0x2d603a0f67a984ea!2sCl+55+%23+23A-10,+Soacha,+Cundinamarca!3b1!8m2!3d4.582459!4d-74.182497!16s%2Fg%2F11x7gvq62h!3m5!1s0x8e3f9fdf4da26fc9:0xee91e30b3f19ff6b!8m2!3d4.574954!4d-74.2170569!16s%2Fg%2F11x2m3rw07?entry=ttu" target="_blank" class="btn btn-gold">
+                        📍 Llévame al evento
+                    </a>
+                    <a href="https://wa.me/573153442396?text=¡Confirmo%20mi%20asistencia%20al%20baby%20shower!%20🎀" target="_blank" class="btn btn-whatsapp">
+                        💬 Confirmar Asistencia
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <section>
-        <div class="balloon-game">
-            <h2>🎈 Rompe los Globos</h2>
-            <p>¡Haz clic en los globos para descubrir una sorpresa.</p>
-            <div class="balloon-container" id="balloonContainer"></div>
-            <div id="letterProgress"></div>
-        </div>
-    </section>
-
-    <section>
-        <div class="wishes-section">
-            <h2>💌 Deja tu Deseo</h2>
-            <div class="wish-form">
-                <textarea id="wishText" placeholder="Escribe tu deseo para la bebé..." maxlength="300"></textarea>
-                <button onclick="submitWish()">✨ Enviar Deseo</button>
+        <div class="content-wrapper">
+            <div class="balloon-game">
+                <h2>🎈 Rompe los Globos</h2>
+                <p>¡Haz clic en los globos para descubrir el nombre de la bebé!</p>
+                <div class="balloon-container" id="balloonContainer"></div>
+                <div id="letterProgress"></div>
             </div>
-            <h3 style="font-family: 'Playfair Display', serif; color: #d4a5a5; font-size: 2em; margin-bottom: 30px;">
-                💝 Muro de deseos
-            </h3>
-            <div class="wishes-board" id="wishesBoard"></div>
         </div>
     </section>
 
     <section>
-        <div class="finale">
-            <h2>💕 Gracias 💕</h2>
-            <p>
-                Gracias por acompañarnos en esta nueva aventura.<br>
-                Cada sonrisa, cada abrazo, cada buen deseo<br>
-                será parte de esta hermosa historia.
-            </p>
-            <p class="signature">
-                Con cariño,<br>
-                <strong>Vanessa, Cristian y toda la familia</strong>
-            </p>
+        <div class="content-wrapper">
+            <div class="wishes-section">
+                <h2>💌 Deja tu Deseo</h2>
+                <div class="wish-form">
+                    <textarea id="wishText" placeholder="Escribe tu deseo para la bebé..." maxlength="300"></textarea>
+                    <button onclick="submitWish()">✨ Enviar Deseo</button>
+                </div>
+                <h3 style="font-family: 'Playfair Display', serif; color: #d4a5a5; font-size: clamp(1.5em, 3vw, 2em); margin-bottom: 30px;">
+                    💝 Deseos de Amor
+                </h3>
+                <div class="wishes-board" id="wishesBoard"></div>
+            </div>
         </div>
     </section>
+
+    <section>
+        <div class="content-wrapper">
+            <div class="finale">
+                <h2>💕 Gracias 💕</h2>
+                <p>
+                    Gracias por acompañarnos en esta nueva aventura.<br>
+                    Cada sonrisa, cada abrazo, cada buen deseo<br>
+                    será parte de esta hermosa historia.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Con amor, Vanessa, Cristian y toda la familia 💕</p>
+    </footer>
 
     <script>
+        // === PARTICLES Y BRILLOS MEJORADOS ===
         function createParticles() {
             const container = document.getElementById('particles');
             const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
             
+            // Partículas flotantes
             for (let i = 0; i < 40; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -953,7 +1149,8 @@
                 container.appendChild(particle);
             }
             
-            for (let i = 0; i < 60; i++) {
+            // Destellos (sparkles) - más numerosos y visibles
+            for (let i = 0; i < 80; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
                 sparkle.style.left = Math.random() * 100 + '%';
@@ -962,38 +1159,60 @@
                 sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
                 container.appendChild(sparkle);
             }
+
+            // Orbes luminosos
+            for (let i = 0; i < 15; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'glow-orb';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.top = Math.random() * 100 + '%';
+                orb.style.width = (Math.random() * 100 + 50) + 'px';
+                orb.style.height = orb.style.width;
+                orb.style.animationDelay = Math.random() * 8 + 's';
+                orb.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                container.appendChild(orb);
+            }
         }
 
-        let lastScrollTop = 0;
+        // === SCROLL HANDLING MEJORADO ===
+        let isScrolling = false;
+        let countdownShown = false;
         
         function checkScroll() {
-            const sections = document.querySelectorAll('section');
-            const heroTitle = document.getElementById('heroTitle');
-            const countdownBanner = document.getElementById('countdownBanner');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 300) {
-                heroTitle.classList.add('hide');
-            } else {
-                heroTitle.classList.remove('hide');
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    const sections = document.querySelectorAll('section');
+                    const countdownBanner = document.getElementById('countdownBanner');
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Mostrar countdown al salir del hero
+                    if (scrollTop > window.innerHeight * 0.5 && !countdownShown) {
+                        countdownBanner.classList.add('visible');
+                        countdownShown = true;
+                    }
+                    
+                    // Hacer countdown compacto después de más scroll
+                    if (scrollTop > window.innerHeight * 1.2) {
+                        countdownBanner.classList.add('compact');
+                    } else if (countdownShown) {
+                        countdownBanner.classList.remove('compact');
+                    }
+                    
+                    // Activar secciones visibles
+                    sections.forEach(section => {
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top < window.innerHeight * 0.75) {
+                            section.classList.add('visible');
+                        }
+                    });
+                    
+                    isScrolling = false;
+                });
+                isScrolling = true;
             }
-            
-            if (scrollTop > 500) {
-                countdownBanner.classList.add('compact');
-            } else {
-                countdownBanner.classList.remove('compact');
-            }
-            
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.75) {
-                    section.classList.add('visible');
-                }
-            });
-            
-            lastScrollTop = scrollTop;
         }
 
+        // === COUNTDOWN ===
         function updateCountdown() {
             const eventDate = new Date('2025-11-14T15:00:00-05:00').getTime();
             const now = new Date().getTime();
@@ -1017,60 +1236,31 @@
             }
         }
 
+        // === BALLOON GAME ===
         const babyNameLetters = ['R', 'E', 'N', 'A', 'T', 'A'];
         let foundLetters = [];
         let foundLetterIndices = new Set();
         
         function loadProgress() {
-            try {
-                const saved = localStorage.getItem('babyShowerProgress');
-                if (saved) {
-                    const data = JSON.parse(saved);
-                    foundLetters = data.foundLetters || [];
-                    foundLetterIndices = new Set(data.foundLetterIndices || []);
-                    if (foundLetterIndices.size > 0) {
-                        updateLetterProgress();
-                    }
-                }
-            } catch (e) {
-                console.log('Error al cargar progreso:', e);
-            }
+            foundLetters = [];
+            foundLetterIndices = new Set();
         }
         
         function saveProgress() {
-            try {
-                const data = {
-                    foundLetters: foundLetters,
-                    foundLetterIndices: Array.from(foundLetterIndices)
-                };
-                localStorage.setItem('babyShowerProgress', JSON.stringify(data));
-            } catch (e) {
-                console.log('Error al guardar progreso:', e);
-            }
+            console.log('Progreso:', foundLetters.length, '/', babyNameLetters.length);
         }
         
         function resetGame() {
-            if (confirm('¿Estás seguro de que quieres reiniciar el juego? Se perderá todo el progreso.')) {
-                foundLetters = [];
-                foundLetterIndices = new Set();
-                localStorage.removeItem('babyShowerProgress');
-                document.getElementById('balloonContainer').innerHTML = '';
-                document.getElementById('letterProgress').innerHTML = '';
-                createBalloons();
-                createConfetti();
-            }
+            // Función removida - botón eliminado
         }
         
         const balloonMessages = [
             '¡Nos vemos pronto en la fiesta! 🎉',
             '¡La abuela Mar está emocionada! 💕',
-            '¡La tía Catalina está emocionada! 💕',
-            '¡La abuelo David está inspirado! 💕',
-            '¡Los papas estan añorando su llegada! 💕',
             '¡Gracias por ser parte de esta historia!',
             'Algo hermoso está por revelarse…',
             '¡Una nueva luz llega al mundo! ✨',
-            '¡La felicidad esta en aire! 💝',
+            '¡El amor está en el aire! 💝',
             '¡Prepárate para celebrar! 🎊',
             '¡Cada momento será mágico! 🌟',
             '¡Sigue buscando las letras! 🔍',
@@ -1080,7 +1270,7 @@
         function createBalloons() {
             const container = document.getElementById('balloonContainer');
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec'];
-            const totalBalloons = 25;
+            const totalBalloons = 16;
             
             const letterBalloons = [...babyNameLetters];
             
@@ -1192,6 +1382,9 @@
         }
 
         function showBalloonMessage(content, isLetter, letterIndex) {
+            const overlay = document.createElement('div');
+            overlay.className = 'message-overlay';
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = 'balloon-message';
             
@@ -1203,7 +1396,7 @@
                     <h3>✨ ¡Descubriste una letra! ✨</h3>
                     <div class="letter-reveal">${content}</div>
                     <p>Sigue reventando globos para descubrir el nombre completo...</p>
-                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                    <button class="close-message" onclick="closeMessage(this)">Continuar</button>
                 `;
                 updateLetterProgress();
                 createConfetti();
@@ -1216,21 +1409,32 @@
                     <h3>✨ Ya encontraste esta letra ✨</h3>
                     <div class="letter-reveal">${content}</div>
                     <p>¡Sigue buscando las letras que faltan!</p>
-                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                    <button class="close-message" onclick="closeMessage(this)">Continuar</button>
                 `;
             } else {
                 messageDiv.innerHTML = `
                     <h3>${content}</h3>
-                    <button class="close-message" onclick="this.parentElement.remove()">Continuar</button>
+                    <button class="close-message" onclick="closeMessage(this)">Continuar</button>
                 `;
             }
             
-            document.body.appendChild(messageDiv);
+            overlay.appendChild(messageDiv);
+            document.body.appendChild(overlay);
+            
             setTimeout(() => {
-                if (messageDiv.parentElement) {
-                    messageDiv.remove();
+                if (overlay.parentElement) {
+                    overlay.remove();
                 }
             }, 4000);
+        }
+
+        function closeMessage(button) {
+            const overlay = button.closest('.message-overlay');
+            if (overlay) {
+                overlay.remove();
+            } else {
+                button.parentElement.remove();
+            }
         }
 
         function updateLetterProgress() {
@@ -1252,8 +1456,6 @@
             for (let i = 0; i < 100; i++) {
                 setTimeout(() => createSparkleEffect(), i * 30);
             }
-            
-            localStorage.setItem('babyShowerCompleted', 'true');
         }
 
         function closeFinalReveal() {
@@ -1261,6 +1463,7 @@
             finalReveal.classList.remove('show');
         }
 
+        // === WISHES ===
         let wishesDatabase = [];
 
         function submitWish() {
@@ -1298,7 +1501,7 @@
             floatingDiv.style.top = '50%';
             floatingDiv.style.transform = 'translate(-50%, -50%)';
             floatingDiv.innerHTML = `
-                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); max-width: 350px; border: 2px solid rgba(212, 165, 165, 0.3);">
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); max-width: 90%; border: 2px solid rgba(212, 165, 165, 0.3);">
                     <p style="font-size: 1.15em; color: #6d4c41; font-style: italic; line-height: 1.6;">${wish}</p>
                 </div>
             `;
@@ -1309,7 +1512,7 @@
         function showFloatingMessage(message, type) {
             const msgDiv = document.createElement('div');
             msgDiv.style.position = 'fixed';
-            msgDiv.style.top = '20px';
+            msgDiv.style.top = '100px';
             msgDiv.style.left = '50%';
             msgDiv.style.transform = 'translateX(-50%)';
             msgDiv.style.background = type === 'success' ? 'linear-gradient(135deg, #25D366, #20ba5a)' : 'linear-gradient(135deg, #f48fb1, #f8bbd0)';
@@ -1320,6 +1523,8 @@
             msgDiv.style.zIndex = '10000';
             msgDiv.style.fontSize = '1.1em';
             msgDiv.style.fontWeight = '600';
+            msgDiv.style.maxWidth = '90%';
+            msgDiv.style.textAlign = 'center';
             msgDiv.textContent = message;
             msgDiv.style.animation = 'fadeInUp 0.5s ease';
             
@@ -1378,16 +1583,18 @@
             }
         }
 
+        // === MUSIC CONTROL CON YOUTUBE ===
         let ytPlayer = null;
         let musicPlaying = false;
         let playerReady = false;
         let userHasInteracted = false;
 
         function loadYouTubeAPI() {
-            if (window.YT) {
+            if (window.YT && window.YT.Player) {
                 initPlayer();
                 return;
             }
+            
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScript = document.getElementsByTagName('script')[0];
@@ -1402,17 +1609,16 @@
             ytPlayer = new YT.Player('youtubeAudioContainer', {
                 height: '0',
                 width: '0',
-                videoId: '-C7GwTVg3II',
+                videoId: '9GaBMZRHM3U',
                 playerVars: {
-                    autoplay: 1,
+                    autoplay: 0,
                     loop: 1,
-                    playlist: '-C7GwTVg3II',
+                    playlist: '9GaBMZRHM3U',
                     controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
                     rel: 0,
-                    playsinline: 1,
-                    mute: 1
+                    playsinline: 1
                 },
                 events: {
                     onReady: onPlayerReady,
@@ -1423,103 +1629,51 @@
 
         function onPlayerReady(event) {
             playerReady = true;
-            console.log('Reproductor listo - música iniciando muteada');
-            event.target.playVideo();
+            console.log('Reproductor de YouTube listo');
             updateMusicButton();
-            setupMusicButton();
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === 1) {
+            if (event.data === YT.PlayerState.PLAYING) {
                 musicPlaying = true;
-            } else if (event.data === 2) {
+                userHasInteracted = true;
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
                 musicPlaying = false;
             }
             updateMusicButton();
         }
 
-        function setupMusicButton() {
+        function setupMusicControl() {
             const musicBtn = document.getElementById('musicControl');
-            if (musicBtn) {
-                const handleMusicToggle = function(event) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    
-                    console.log('Botón de música presionado');
-                    
-                    if (!ytPlayer || !playerReady) {
-                        console.log('Reproductor no está listo');
-                        return;
-                    }
-
-                    try {
-                        if (!userHasInteracted) {
-                            ytPlayer.unMute();
-                            ytPlayer.setVolume(50);
-                            ytPlayer.playVideo();
-                            userHasInteracted = true;
-                            musicPlaying = true;
-                            console.log('Audio activado por botón');
-                            updateMusicButton();
-                            return;
-                        }
-
-                        if (musicPlaying) {
-                            ytPlayer.pauseVideo();
-                            musicPlaying = false;
-                            console.log('Música pausada');
-                        } else {
-                            ytPlayer.playVideo();
-                            musicPlaying = true;
-                            console.log('Música reproduciendo');
-                        }
-                        updateMusicButton();
-                    } catch (e) {
-                        console.log('Error al controlar música:', e);
-                    }
-                };
-                
-                musicBtn.addEventListener('click', handleMusicToggle);
-                musicBtn.addEventListener('touchend', handleMusicToggle);
-                console.log('Botón de música configurado');
-            }
+            if (!musicBtn) return;
+            
+            musicBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMusic();
+            });
         }
 
-        function enableAudioOnFirstClick(event) {
-            console.log('Evento detectado:', event.type);
-            
-            if (event.target && (event.target.id === 'musicControl' || event.target.closest('#musicControl'))) {
-                console.log('Clic en botón de música - ignorado');
-                return;
-            }
-            
+        function toggleMusic() {
             if (!ytPlayer || !playerReady) {
-                console.log('Reproductor no está listo aún');
-                return;
-            }
-            
-            if (userHasInteracted) {
-                console.log('Usuario ya interactuó');
+                console.log('Reproductor no está listo');
                 return;
             }
             
             try {
-                console.log('Intentando activar audio...');
-                ytPlayer.unMute();
-                ytPlayer.setVolume(50);
-                ytPlayer.playVideo();
-                userHasInteracted = true;
-                musicPlaying = true;
-                console.log('Música activada - usuario interactuó con la página');
+                if (musicPlaying) {
+                    ytPlayer.pauseVideo();
+                    musicPlaying = false;
+                } else {
+                    ytPlayer.playVideo();
+                    ytPlayer.setVolume(50);
+                    musicPlaying = true;
+                    userHasInteracted = true;
+                }
                 updateMusicButton();
             } catch (e) {
-                console.log('Error al activar audio:', e);
+                console.log('Error al controlar música:', e);
             }
         }
-
-        document.addEventListener('click', enableAudioOnFirstClick);
-        document.addEventListener('touchstart', enableAudioOnFirstClick, { passive: true });
-        document.addEventListener('touchend', enableAudioOnFirstClick, { passive: true });
 
         function updateMusicButton() {
             const musicBtn = document.getElementById('musicControl');
@@ -1536,8 +1690,32 @@
             }
         }
 
-        loadYouTubeAPI();
+        // Intentar reproducir música con la primera interacción
+        function enableMusicOnFirstInteraction() {
+            if (!userHasInteracted && ytPlayer && playerReady) {
+                try {
+                    ytPlayer.playVideo();
+                    ytPlayer.setVolume(50);
+                    userHasInteracted = true;
+                    musicPlaying = true;
+                    updateMusicButton();
+                    console.log('Música activada con interacción del usuario');
+                } catch (e) {
+                    console.log('Esperando interacción explícita del usuario');
+                }
+            }
+            // Remover el listener después de la primera interacción
+            document.removeEventListener('click', enableMusicOnFirstInteraction);
+            document.removeEventListener('touchstart', enableMusicOnFirstInteraction);
+            document.removeEventListener('scroll', enableMusicOnFirstInteraction);
+        }
 
+        // Agregar listeners para primera interacción
+        document.addEventListener('click', enableMusicOnFirstInteraction, { once: true });
+        document.addEventListener('touchstart', enableMusicOnFirstInteraction, { once: true, passive: true });
+        document.addEventListener('scroll', enableMusicOnFirstInteraction, { once: true, passive: true });
+
+        // === INITIALIZATION ===
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
@@ -1547,7 +1725,10 @@
             checkScroll();
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            setupMusicControl();
+            loadYouTubeAPI();
             
+            // Confetti en la última sección
             const lastSection = document.querySelector('.finale').parentElement;
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1562,6 +1743,7 @@
             }, { threshold: 0.5 });
             observer.observe(lastSection);
 
+            // Wishes iniciales
             wishesDatabase = [
                 '¡Que tu vida esté llena de amor y alegría, pequeña Renata! 💕',
                 'Bienvenida a este mundo hermoso, princesa ✨',
