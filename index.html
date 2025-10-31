@@ -6,8 +6,6 @@
     <title>Baby Shower - Te invitamos! ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS OPTIMIZADOS PARA RENDIMIENTO --- */
-
         html {
             scroll-behavior: smooth;
         }
@@ -19,7 +17,6 @@
         }
 
         body {
-            /* Mantenemos el fondo visualmente atractivo sin partículas costosas */
             font-family: 'Quicksand', sans-serif;
             background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffd6e8 100%);
             color: #5d4037;
@@ -30,7 +27,82 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Se eliminaron las clases .floating-particles, .particle, .sparkle, .glow-orb y sus @keyframes para mejorar el rendimiento */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatUp 15s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(0) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% { 
+                opacity: 0.8;
+            }
+            90% { 
+                opacity: 0.6;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            animation: sparkleShine 3s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes sparkleShine {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(2.5) rotate(180deg);
+            }
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+            animation: glowFloat 8s infinite ease-in-out;
+            opacity: 0.4;
+            filter: blur(20px);
+        }
+
+        @keyframes glowFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(50px, -80px) scale(1.5);
+                opacity: 0.6;
+            }
+        }
 
         section {
             min-height: 100vh;
@@ -42,7 +114,6 @@
             position: relative;
             z-index: 2;
             opacity: 0;
-            /* Se usa transform para animación fluida (acelerada por GPU) */
             transform: translateY(50px);
             transition: opacity 1s ease, transform 1s ease;
         }
@@ -69,7 +140,6 @@
         .hero-content {
             max-width: 800px;
             padding: 0;
-            /* Se mantiene la animación de aparición */
             animation: heroAppear 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             z-index: 3;
@@ -92,7 +162,6 @@
             color: #d4a5a5;
             margin-bottom: 20px;
             text-shadow: 0 0 40px rgba(212, 165, 165, 1), 0 0 60px rgba(244, 143, 177, 0.8), 0 5px 15px rgba(0,0,0,0.3);
-            /* Se mantiene el brillo del título */
             animation: titleGlow 3s ease-in-out infinite;
             line-height: 1.2;
         }
@@ -116,7 +185,6 @@
         .hero-content .scroll-hint {
             font-size: clamp(1.1em, 4vw, 1.7em);
             color: #fff;
-            /* Se mantiene el efecto de rebote */
             animation: bounce 2s infinite;
             margin-top: 20px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3), 0 0 20px rgba(248, 187, 208, 0.8);
@@ -194,7 +262,6 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(212, 165, 165, 0.1) 0%, transparent 70%);
-            /* Animación de brillo sutil para reemplazar partículas */
             animation: rotateGlow 4s linear infinite;
         }
 
@@ -387,7 +454,6 @@
             position: absolute;
             cursor: pointer;
             transition: all 0.3s ease;
-            /* Se mantiene la animación flotante del globo, que es menos costosa que las partículas */
             animation: floatBalloon 4s ease-in-out infinite;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
@@ -787,7 +853,6 @@
             top: -20px;
             z-index: 1000;
             pointer-events: none;
-            /* Se mantiene la animación de confeti solo para momentos de celebración (revelación de nombre) */
             animation: confettiFall 4s linear forwards;
         }
 
@@ -941,6 +1006,8 @@
     </style>
 </head>
 <body>
+    <div class="floating-particles" id="particles"></div>
+
     <div class="music-control" id="musicControl" title="Reproducir música">🔇</div>
     <div id="youtubeAudioContainer" style="width:0; height:0; overflow:hidden; position:fixed; bottom:0; left:0;"></div>
 
@@ -1073,9 +1140,208 @@
     </footer>
 
     <script>
-        // Función createParticles eliminada para mejorar rendimiento.
+        // **********************************************
+        // *** CONFIGURACIÓN DE JSONBIN.IO (DEFINITIVA) ***
+        // **********************************************
+        const BIN_ID = '6904a7e4ae596e708f3a26ba'; // Tu Bin ID para el Muro de Deseos
+        const API_ENDPOINT = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        
+        // Tu X-Master-Key (Master Key) para poder leer y escribir en el Bin
+        const API_KEY ='$2a$10$EeTljrAbZSVlRFJd6nJynOW5zfHCGX4oD2lgGWPeeRELRxP6oX0Sy'; 
+        // **********************************************
+
+        // --- FUNCIONES DE API (Deseos) ---
+
+        /**
+         * Obtiene la lista de deseos de la API (jsonbin.io).
+         */
+        async function fetchWishes() {
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': API_KEY, 
+                        'X-Bin-Meta': 'false' // Pide solo los datos, no la metadata
+                    }
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 404 || response.status === 400) {
+                        return []; 
+                    }
+                    throw new Error(`Error al obtener deseos: ${response.statusText} (${response.status})`);
+                }
+                
+                // Los datos devueltos son el array completo de deseos
+                const wishes = await response.json(); 
+                
+                if (!Array.isArray(wishes)) {
+                    console.warn("La base de datos en Jsonbin no es un array. Inicializando como array vacío.");
+                    return [];
+                }
+
+                renderWishes(wishes);
+                return wishes;
+
+            } catch (error) {
+                console.error('Error al obtener los deseos (jsonbin.io):', error);
+                showFloatingMessage('No se pudo cargar el muro de deseos. Verifique su BIN ID y Master Key.', 'error');
+                return [];
+            }
+        }
+
+
+        /**
+         * Envia el deseo a la API (jsonbin.io) usando PUT para sobrescribir el Bin.
+         */
+        async function submitWish() {
+            const textarea = document.getElementById('wishText');
+            const button = document.querySelector('.wish-form button');
+            const newWishText = textarea.value.trim();
+            
+            if (newWishText.length < 10) {
+                showFloatingMessage('Por favor escribe un deseo más significativo (mínimo 10 caracteres) 💕', 'error');
+                textarea.focus();
+                return;
+            }
+            
+            button.disabled = true;
+            button.textContent = 'Enviando...';
+
+            try {
+                // 1. Obtener la lista actual de deseos
+                let currentWishes = await fetchWishes();
+                
+                // 2. Crear el nuevo deseo con marca de tiempo y ID
+                const newWish = {
+                    id: Date.now(),
+                    wish: newWishText,
+                    date: new Date().toISOString()
+                };
+
+                // 3. Agregar el nuevo deseo a la lista (al inicio)
+                currentWishes.unshift(newWish); 
+                
+                // 4. Enviar la lista completa para SOBRESCRIBIR el Bin (Método PUT)
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY, 
+                        'X-Bin-Name': 'baby-wishes'
+                    },
+                    body: JSON.stringify(currentWishes),
+                });
+
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        throw new Error('403 Forbidden: Master Key incorrecta o Bin privado.');
+                    }
+                    throw new Error(`Error al enviar: ${response.statusText}`);
+                }
+                
+                showFloatingWish(newWishText);
+                textarea.value = '';
+                
+                // 5. Actualizar la lista en el muro con el nuevo array
+                renderWishes(currentWishes);
+                
+                showFloatingMessage('¡Tu deseo ha sido enviado con amor! 💝', 'success');
+                createSparkleEffect();
+
+            } catch (error) {
+                console.error('Error al enviar el deseo (jsonbin.io):', error);
+                showFloatingMessage(`Hubo un error al enviar: ${error.message.includes('403') ? 'Master Key o Bin ID incorrecta.' : 'Error de conexión.'} 😥`, 'error');
+            } finally {
+                button.disabled = false;
+                button.textContent = '✨ Enviar Deseo';
+            }
+        }
+
+
+        /**
+         * Renderiza los deseos en el muro. Recibe el array de deseos como parámetro.
+         */
+        function renderWishes(wishes) {
+            const board = document.getElementById('wishesBoard');
+            board.innerHTML = '';
+            
+            // Ordena para que los más recientes salgan primero, si los objetos tienen una propiedad 'date'
+            const sortedWishes = [...wishes].sort((a, b) => {
+                const dateA = new Date(a.date || 0);
+                const dateB = new Date(b.date || 0);
+                return dateB - dateA; // Descenente: más reciente primero
+            });
+
+            sortedWishes.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'wish-card';
+                card.style.animationDelay = (index * 0.1) + 's';
+                
+                let formattedDate = '';
+                // Intentamos formatear la fecha solo si está presente
+                if (item.date) {
+                    try {
+                        const date = new Date(item.date);
+                        if (!isNaN(date.getTime())) {
+                            // Formato corto para la fecha: dd/mm/aaaa
+                            formattedDate = date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                        }
+                    } catch (e) {
+                        formattedDate = 'Fecha desconocida';
+                    }
+                }
+                
+                // Usamos item.wish para extraer el texto del deseo
+                card.innerHTML = `
+                    <p>"${item.wish}"</p>
+                    ${formattedDate ? `<small style="display: block; margin-top: 10px; color: #d4a5a5; font-style: normal; font-weight: 600;">— ${formattedDate}</small>` : ''}
+                `;
+                board.appendChild(card);
+            });
+        }
+
+
+        // --- FUNCIONES AUXILIARES (Sin Cambios) ---
+
         function createParticles() {
-            // No implementado - Eliminado para optimización.
+            const container = document.getElementById('particles');
+            const colors = ['rgba(255, 179, 217, 0.6)', 'rgba(255, 214, 232, 0.6)', 'rgba(248, 187, 208, 0.6)', 'rgba(255, 255, 255, 0.8)'];
+            
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-10px';
+                particle.style.width = (Math.random() * 6 + 4) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+            
+            for (let i = 0; i < 80; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(sparkle);
+            }
+
+            for (let i = 0; i < 15; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'glow-orb';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.top = Math.random() * 100 + '%';
+                orb.style.width = (Math.random() * 100 + 50) + 'px';
+                orb.style.height = orb.style.width;
+                orb.style.animationDelay = Math.random() * 8 + 's';
+                orb.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                container.appendChild(orb);
+            }
         }
 
         let isScrolling = false;
@@ -1217,7 +1483,6 @@
             balloon.style.opacity = '0';
             
             const rect = balloon.getBoundingClientRect();
-            // Mantenemos confeti al explotar el globo para mantener impacto visual
             for (let i = 0; i < 10; i++) {
                 createMiniConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
             }
@@ -1264,7 +1529,6 @@
             
             function animate() {
                 const elapsed = (Date.now() - startTime) / 1000;
-                // Usamos un loop requestAnimationFrame por cada confeti, pero son pocos y de corta duración
                 velY += gravity * 0.016;
                 posX += vx * 0.016;
                 posY += velY * 0.016;
@@ -1324,7 +1588,6 @@
             document.body.appendChild(overlay);
             
             setTimeout(() => {
-                // Si el usuario no lo cierra, se cierra automáticamente
                 if (overlay.parentElement) {
                     overlay.remove();
                 }
@@ -1352,13 +1615,12 @@
             const finalReveal = document.getElementById('finalReveal');
             finalReveal.classList.add('show');
             
-            // Reducción y limitación del confeti y efectos de brillo (sparkle) al final
-            for (let i = 0; i < 150; i++) { // Se redujo la cantidad a la mitad
-                setTimeout(() => createConfetti(), i * 20); // Intervalo más lento
+            for (let i = 0; i < 300; i++) {
+                setTimeout(() => createConfetti(), i * 10);
             }
             
-            for (let i = 0; i < 50; i++) { // Se redujo la cantidad a la mitad
-                setTimeout(() => createSparkleEffect(), i * 60); // Intervalo más lento
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => createSparkleEffect(), i * 30);
             }
         }
 
@@ -1367,36 +1629,6 @@
             finalReveal.classList.remove('show');
         }
 
-        let wishesDatabase = [];
-
-        function submitWish() {
-            const textarea = document.getElementById('wishText');
-            const wish = textarea.value.trim();
-            
-            if (wish.length < 10) {
-                showFloatingMessage('Por favor escribe un deseo más significativo (mínimo 10 caracteres) 💕', 'error');
-                textarea.focus();
-                return;
-            }
-
-            wishesDatabase.unshift(wish);
-            showFloatingWish(wish);
-            
-            setTimeout(() => {
-                renderWishes();
-                textarea.value = '';
-            }, 2000);
-            
-            const keywords = ['amor', 'luz', 'felicidad', 'bendición', 'alegría', 'renata', 'hermosa', 'bendita', 'salud'];
-            const lowerWish = wish.toLowerCase();
-            
-            if (keywords.some(keyword => lowerWish.includes(keyword))) {
-                // Se mantiene el efecto de brillo (sparkle) solo para palabras clave, es un efecto fugaz.
-                createSparkleEffect();
-            }
-            
-            showFloatingMessage('¡Tu deseo ha sido enviado con amor! 💝', 'success');
-        }
 
         function showFloatingWish(wish) {
             const floatingDiv = document.createElement('div');
@@ -1439,21 +1671,9 @@
             }, 3000);
         }
 
-        function renderWishes() {
-            const board = document.getElementById('wishesBoard');
-            board.innerHTML = '';
-            
-            wishesDatabase.forEach((wish, index) => {
-                const card = document.createElement('div');
-                card.className = 'wish-card';
-                card.style.animationDelay = (index * 0.1) + 's';
-                card.innerHTML = `<p>${wish}</p>`;
-                board.appendChild(card);
-            });
-        }
 
         function createSparkleEffect() {
-            for (let i = 0; i < 15; i++) { /* Se redujo la cantidad de sparkles generados en este efecto */
+            for (let i = 0; i < 30; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.style.position = 'fixed';
                 sparkle.style.left = Math.random() * 100 + '%';
@@ -1474,7 +1694,7 @@
 
         function createConfetti() {
             const colors = ['#ffb3d9', '#ffd6e8', '#f8bbd0', '#f48fb1', '#fce4ec', '#ffd700', '#fff'];
-            for (let i = 0; i < 5; i++) { /* Se redujo la cantidad de confeti generado por llamada */
+            for (let i = 0; i < 20; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
@@ -1610,7 +1830,7 @@
         window.addEventListener('scroll', checkScroll);
         
         window.addEventListener('load', () => {
-            // createParticles(); // Eliminado
+            createParticles();
             createBalloons();
             checkScroll();
             updateCountdown();
@@ -1627,22 +1847,18 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Se reduce la frecuencia de confeti al final
                         setInterval(() => {
-                            createConfetti(); // createConfetti genera solo 5 por llamada ahora
-                        }, 4000); // Se incrementó el intervalo de 2000 a 4000ms
+                            for (let i = 0; i < 5; i++) {
+                                createConfetti();
+                            }
+                        }, 2000);
                     }
                 });
             }, { threshold: 0.5 });
             observer.observe(lastSection);
 
-            wishesDatabase = [
-                '¡Que tu vida esté llena de amor y alegría, pequeña Renata! 💕',
-                'Bienvenida a este mundo hermoso, princesa ✨',
-                'Que crezcas rodeada de felicidad y bendiciones 🌸',
-                '¡Renata, que tu luz ilumine cada día! 🌟'
-            ];
-            renderWishes();
+            // Carga los deseos del muro al cargar la página desde Jsonbin.io
+            fetchWishes(); 
         });
     </script>
 </body>
